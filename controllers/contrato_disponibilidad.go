@@ -3,20 +3,20 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/administrativa_local/models"
+	"github.com/udistrital/administrativa_crud_api/models"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
 )
 
-// NecesidadOtroSiController operations for NecesidadOtroSi
-type NecesidadOtroSiController struct {
+// ContratoDisponibilidadController operations for ContratoDisponibilidad
+type ContratoDisponibilidadController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *NecesidadOtroSiController) URLMapping() {
+func (c *ContratoDisponibilidadController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,15 +26,15 @@ func (c *NecesidadOtroSiController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create NecesidadOtroSi
-// @Param	body		body 	models.NecesidadOtroSi	true		"body for NecesidadOtroSi content"
-// @Success 201 {int} models.NecesidadOtroSi
+// @Description create ContratoDisponibilidad
+// @Param	body		body 	models.ContratoDisponibilidad	true		"body for ContratoDisponibilidad content"
+// @Success 201 {int} models.ContratoDisponibilidad
 // @Failure 403 body is empty
 // @router / [post]
-func (c *NecesidadOtroSiController) Post() {
-	var v models.NecesidadOtroSi
+func (c *ContratoDisponibilidadController) Post() {
+	var v models.ContratoDisponibilidad
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddNecesidadOtroSi(&v); err == nil {
+		if _, err := models.AddContratoDisponibilidad(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -48,15 +48,15 @@ func (c *NecesidadOtroSiController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get NecesidadOtroSi by id
+// @Description get ContratoDisponibilidad by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.NecesidadOtroSi
+// @Success 200 {object} models.ContratoDisponibilidad
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *NecesidadOtroSiController) GetOne() {
+func (c *ContratoDisponibilidadController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetNecesidadOtroSiById(id)
+	id, _ := strconv.ParseInt(idStr, 0, 64)
+	v, err := models.GetContratoDisponibilidadById(id)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -67,17 +67,17 @@ func (c *NecesidadOtroSiController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get NecesidadOtroSi
+// @Description get ContratoDisponibilidad
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.NecesidadOtroSi
+// @Success 200 {object} models.ContratoDisponibilidad
 // @Failure 403
 // @router / [get]
-func (c *NecesidadOtroSiController) GetAll() {
+func (c *ContratoDisponibilidadController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -119,7 +119,7 @@ func (c *NecesidadOtroSiController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllNecesidadOtroSi(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllContratoDisponibilidad(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -130,18 +130,18 @@ func (c *NecesidadOtroSiController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the NecesidadOtroSi
+// @Description update the ContratoDisponibilidad
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.NecesidadOtroSi	true		"body for NecesidadOtroSi content"
-// @Success 200 {object} models.NecesidadOtroSi
+// @Param	body		body 	models.ContratoDisponibilidad	true		"body for ContratoDisponibilidad content"
+// @Success 200 {object} models.ContratoDisponibilidad
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *NecesidadOtroSiController) Put() {
+func (c *ContratoDisponibilidadController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	v := models.NecesidadOtroSi{Id: id}
+	id, _ := strconv.ParseInt(idStr, 0, 64)
+	v := models.ContratoDisponibilidad{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateNecesidadOtroSiById(&v); err == nil {
+		if err := models.UpdateContratoDisponibilidadById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
@@ -154,15 +154,15 @@ func (c *NecesidadOtroSiController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the NecesidadOtroSi
+// @Description delete the ContratoDisponibilidad
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *NecesidadOtroSiController) Delete() {
+func (c *ContratoDisponibilidadController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteNecesidadOtroSi(id); err == nil {
+	id, _ := strconv.ParseInt(idStr, 0, 64)
+	if err := models.DeleteContratoDisponibilidad(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()

@@ -8,7 +8,7 @@
 package routers
 
 import (
-	"github.com/udistrital/administrativa_local/controllers"
+	"github.com/udistrital/administrativa_crud_api/controllers"
 
 	"github.com/astaxie/beego"
 )
@@ -43,12 +43,6 @@ func init() {
 		beego.NSNamespace("/tipo_resolucion",
 			beego.NSInclude(
 				&controllers.TipoResolucionController{},
-			),
-		),
-
-		beego.NSNamespace("/necesidad_otro_si",
-			beego.NSInclude(
-				&controllers.NecesidadOtroSiController{},
 			),
 		),
 
@@ -121,12 +115,6 @@ func init() {
 		beego.NSNamespace("/entrada",
 			beego.NSInclude(
 				&controllers.EntradaController{},
-			),
-		),
-
-		beego.NSNamespace("/necesidad_rechazada",
-			beego.NSInclude(
-				&controllers.NecesidadRechazadaController{},
 			),
 		),
 
@@ -343,6 +331,174 @@ func init() {
 		beego.NSNamespace("/tipo_valor_amparo",
 			beego.NSInclude(
 				&controllers.TipoValorAmparoController{},
+			),
+		),
+
+		beego.NSNamespace("/actividad_economica_necesidad",
+			beego.NSInclude(
+				&controllers.ActividadEconomicaNecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/contenido_resolucion",
+			beego.NSInclude(
+				&controllers.ResolucionCompletaController{},
+			),
+		),
+
+		beego.NSNamespace("/especificacion_tecnica",
+			beego.NSInclude(
+				&controllers.EspecificacionTecnicaController{},
+			),
+		),
+
+		beego.NSNamespace("/estado_necesidad",
+			beego.NSInclude(
+				&controllers.EstadoNecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/fuente_financiacion_rubro_necesidad",
+			beego.NSInclude(
+				&controllers.FuenteFinanciacionRubroNecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/marco_legal_necesidad",
+			beego.NSInclude(
+				&controllers.MarcoLegalNecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/marco_legal",
+			beego.NSInclude(
+				&controllers.MarcoLegalController{},
+			),
+		),
+
+		beego.NSNamespace("/modalidad_seleccion",
+			beego.NSInclude(
+				&controllers.ModalidadSeleccionController{},
+			),
+		),
+
+		beego.NSNamespace("/necesidad",
+			beego.NSInclude(
+				&controllers.NecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/parametros",
+			beego.NSInclude(
+				&controllers.ParametrosController{},
+			),
+		),
+
+		beego.NSNamespace("/parametro_estandar",
+			beego.NSInclude(
+				&controllers.ParametroEstandarController{},
+			),
+		),
+
+		beego.NSNamespace("/persona_escalafon",
+			beego.NSInclude(
+				&controllers.PersonaEscalafonController{},
+			),
+		),
+
+		beego.NSNamespace("/poliza",
+			beego.NSInclude(
+				&controllers.PolizaController{},
+			),
+		),
+
+		beego.NSNamespace("/precontratado",
+			beego.NSInclude(
+				&controllers.PrecontratadoController{},
+			),
+		),
+
+		beego.NSNamespace("/requisito_minimo",
+			beego.NSInclude(
+				&controllers.RequisitoMinimoController{},
+			),
+		),
+
+		beego.NSNamespace("/resolucion_vinculacion",
+			beego.NSInclude(
+				&controllers.ResolucionVinculacionController{},
+			),
+		),
+
+		beego.NSNamespace("/acta_inicio",
+			beego.NSInclude(
+				&controllers.ActaInicioController{},
+			),
+		),
+
+		beego.NSNamespace("/contrato_disponibilidad",
+			beego.NSInclude(
+				&controllers.ContratoDisponibilidadController{},
+			),
+		),
+
+		beego.NSNamespace("/contrato_estado",
+			beego.NSInclude(
+				&controllers.ContratoEstadoController{},
+			),
+		),
+
+		beego.NSNamespace("/contrato_general",
+			beego.NSInclude(
+				&controllers.ContratoGeneralController{},
+			),
+		),
+
+		beego.NSNamespace("/lugar_ejecucion",
+			beego.NSInclude(
+				&controllers.LugarEjecucionController{},
+			),
+		),
+
+		beego.NSNamespace("/relacion_parametro",
+			beego.NSInclude(
+				&controllers.RelacionParametroController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_contrato",
+			beego.NSInclude(
+				&controllers.TipoContratoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_financiacion_necesidad",
+			beego.NSInclude(
+				&controllers.TipoFinanciacionNecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/tr_necesidad",
+			beego.NSInclude(
+				&controllers.TrNecesidadController{},
+			),
+		),
+
+		beego.NSNamespace("/vigencia_contrato",
+			beego.NSInclude(
+				&controllers.VigenciaContratoController{},
+			),
+		),
+
+		beego.NSNamespace("/vinculacion_docente",
+			beego.NSInclude(
+				&controllers.VinculacionDocenteController{},
+			),
+		),
+
+		beego.NSNamespace("/supervisor_contrato",
+			beego.NSInclude(
+				&controllers.SupervisorContratoController{},
 			),
 		),
 	)

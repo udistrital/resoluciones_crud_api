@@ -3,20 +3,20 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/administrativa_local/models"
+	"github.com/udistrital/administrativa_crud_api/models"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
 )
 
-// NecesidadRechazadaController operations for NecesidadRechazada
-type NecesidadRechazadaController struct {
+// ParametroEstandarController operations for ParametroEstandar
+type ParametroEstandarController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *NecesidadRechazadaController) URLMapping() {
+func (c *ParametroEstandarController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,15 +26,15 @@ func (c *NecesidadRechazadaController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create NecesidadRechazada
-// @Param	body		body 	models.NecesidadRechazada	true		"body for NecesidadRechazada content"
-// @Success 201 {int} models.NecesidadRechazada
+// @Description create ParametroEstandar
+// @Param	body		body 	models.ParametroEstandar	true		"body for ParametroEstandar content"
+// @Success 201 {int} models.ParametroEstandar
 // @Failure 403 body is empty
 // @router / [post]
-func (c *NecesidadRechazadaController) Post() {
-	var v models.NecesidadRechazada
+func (c *ParametroEstandarController) Post() {
+	var v models.ParametroEstandar
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddNecesidadRechazada(&v); err == nil {
+		if _, err := models.AddParametroEstandar(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -48,15 +48,15 @@ func (c *NecesidadRechazadaController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get NecesidadRechazada by id
+// @Description get ParametroEstandar by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.NecesidadRechazada
+// @Success 200 {object} models.ParametroEstandar
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *NecesidadRechazadaController) GetOne() {
+func (c *ParametroEstandarController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetNecesidadRechazadaById(id)
+	v, err := models.GetParametroEstandarById(id)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -67,17 +67,17 @@ func (c *NecesidadRechazadaController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get NecesidadRechazada
+// @Description get ParametroEstandar
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.NecesidadRechazada
+// @Success 200 {object} models.ParametroEstandar
 // @Failure 403
 // @router / [get]
-func (c *NecesidadRechazadaController) GetAll() {
+func (c *ParametroEstandarController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -119,7 +119,7 @@ func (c *NecesidadRechazadaController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllNecesidadRechazada(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllParametroEstandar(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -130,18 +130,18 @@ func (c *NecesidadRechazadaController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the NecesidadRechazada
+// @Description update the ParametroEstandar
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.NecesidadRechazada	true		"body for NecesidadRechazada content"
-// @Success 200 {object} models.NecesidadRechazada
+// @Param	body		body 	models.ParametroEstandar	true		"body for ParametroEstandar content"
+// @Success 200 {object} models.ParametroEstandar
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *NecesidadRechazadaController) Put() {
+func (c *ParametroEstandarController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.NecesidadRechazada{Id: id}
+	v := models.ParametroEstandar{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateNecesidadRechazadaById(&v); err == nil {
+		if err := models.UpdateParametroEstandarById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
@@ -154,15 +154,15 @@ func (c *NecesidadRechazadaController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the NecesidadRechazada
+// @Description delete the ParametroEstandar
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *NecesidadRechazadaController) Delete() {
+func (c *ParametroEstandarController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteNecesidadRechazada(id); err == nil {
+	if err := models.DeleteParametroEstandar(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()

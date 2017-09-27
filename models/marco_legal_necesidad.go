@@ -9,45 +9,45 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type NecesidadOtroSi struct {
-	Id       int    `orm:"column(id);pk"`
-	Contrato string `orm:"column(contrato)"`
-	Vigencia int    `orm:"column(vigencia)"`
+type MarcoLegalNecesidad struct {
+	Id         int         `orm:"column(id);pk;auto"`
+	MarcoLegal *MarcoLegal `orm:"column(marco_legal);rel(fk)"`
+	Necesidad  *Necesidad  `orm:"column(necesidad);rel(fk)"`
 }
 
-func (t *NecesidadOtroSi) TableName() string {
-	return "necesidad_otro_si"
+func (t *MarcoLegalNecesidad) TableName() string {
+	return "marco_legal_necesidad"
 }
 
 func init() {
-	orm.RegisterModel(new(NecesidadOtroSi))
+	orm.RegisterModel(new(MarcoLegalNecesidad))
 }
 
-// AddNecesidadOtroSi insert a new NecesidadOtroSi into database and returns
+// AddMarcoLegalNecesidad insert a new MarcoLegalNecesidad into database and returns
 // last inserted Id on success.
-func AddNecesidadOtroSi(m *NecesidadOtroSi) (id int64, err error) {
+func AddMarcoLegalNecesidad(m *MarcoLegalNecesidad) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetNecesidadOtroSiById retrieves NecesidadOtroSi by Id. Returns error if
+// GetMarcoLegalNecesidadById retrieves MarcoLegalNecesidad by Id. Returns error if
 // Id doesn't exist
-func GetNecesidadOtroSiById(id int) (v *NecesidadOtroSi, err error) {
+func GetMarcoLegalNecesidadById(id int) (v *MarcoLegalNecesidad, err error) {
 	o := orm.NewOrm()
-	v = &NecesidadOtroSi{Id: id}
+	v = &MarcoLegalNecesidad{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllNecesidadOtroSi retrieves all NecesidadOtroSi matches certain condition. Returns empty list if
+// GetAllMarcoLegalNecesidad retrieves all MarcoLegalNecesidad matches certain condition. Returns empty list if
 // no records exist
-func GetAllNecesidadOtroSi(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllMarcoLegalNecesidad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(NecesidadOtroSi))
+	qs := o.QueryTable(new(MarcoLegalNecesidad)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -97,7 +97,7 @@ func GetAllNecesidadOtroSi(query map[string]string, fields []string, sortby []st
 		}
 	}
 
-	var l []NecesidadOtroSi
+	var l []MarcoLegalNecesidad
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -120,11 +120,11 @@ func GetAllNecesidadOtroSi(query map[string]string, fields []string, sortby []st
 	return nil, err
 }
 
-// UpdateNecesidadOtroSi updates NecesidadOtroSi by Id and returns error if
+// UpdateMarcoLegalNecesidad updates MarcoLegalNecesidad by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateNecesidadOtroSiById(m *NecesidadOtroSi) (err error) {
+func UpdateMarcoLegalNecesidadById(m *MarcoLegalNecesidad) (err error) {
 	o := orm.NewOrm()
-	v := NecesidadOtroSi{Id: m.Id}
+	v := MarcoLegalNecesidad{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -135,15 +135,15 @@ func UpdateNecesidadOtroSiById(m *NecesidadOtroSi) (err error) {
 	return
 }
 
-// DeleteNecesidadOtroSi deletes NecesidadOtroSi by Id and returns error if
+// DeleteMarcoLegalNecesidad deletes MarcoLegalNecesidad by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteNecesidadOtroSi(id int) (err error) {
+func DeleteMarcoLegalNecesidad(id int) (err error) {
 	o := orm.NewOrm()
-	v := NecesidadOtroSi{Id: id}
+	v := MarcoLegalNecesidad{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&NecesidadOtroSi{Id: id}); err == nil {
+		if num, err = o.Delete(&MarcoLegalNecesidad{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

@@ -11,7 +11,7 @@ import (
 )
 
 type CatalogoElemento struct {
-	Id                    int       `orm:"column(elemento_id);pk"`
+	Id                    int       `orm:"column(elemento_id);pk;auto"`
 	ElementoPadre         int       `orm:"column(elemento_padre)"`
 	ElementoCodigo        int       `orm:"column(elemento_codigo)"`
 	ElementoCatalogo      int       `orm:"column(elemento_catalogo)"`
@@ -53,7 +53,7 @@ func GetCatalogoElementoById(id int) (v *CatalogoElemento, err error) {
 func GetAllCatalogoElemento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(CatalogoElemento))
+	qs := o.QueryTable(new(CatalogoElemento)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

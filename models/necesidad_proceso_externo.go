@@ -10,10 +10,10 @@ import (
 )
 
 type NecesidadProcesoExterno struct {
-	Id             int `orm:"column(id);pk"`
-	Necesidad      int `orm:"column(necesidad)"`
-	ProcesoExterno int `orm:"column(proceso_externo)"`
-	TipoNecesidad  int `orm:"column(tipo_necesidad)"`
+	Id             int            `orm:"column(id);pk;auto"`
+	Necesidad      *Necesidad     `orm:"column(necesidad);rel(fk)"`
+	ProcesoExterno int            `orm:"column(proceso_externo)"`
+	TipoNecesidad  *TipoNecesidad `orm:"column(tipo_necesidad);rel(fk)"`
 }
 
 func (t *NecesidadProcesoExterno) TableName() string {
@@ -48,7 +48,7 @@ func GetNecesidadProcesoExternoById(id int) (v *NecesidadProcesoExterno, err err
 func GetAllNecesidadProcesoExterno(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(NecesidadProcesoExterno))
+	qs := o.QueryTable(new(NecesidadProcesoExterno)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

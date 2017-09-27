@@ -10,12 +10,12 @@ import (
 )
 
 type TipoContratoNecesidad struct {
-	Id                int     `orm:"column(id);pk"`
-	Nombre            string  `orm:"column(nombre)"`
-	Descripcion       string  `orm:"column(descripcion);null"`
-	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
-	Estado            bool    `orm:"column(estado)"`
-	NumeroOrden       float64 `orm:"column(numero_orden);null"`
+	Id                int    `orm:"column(id);pk;auto"`
+	Nombre            string `orm:"column(nombre)"`
+	Descripcion       string `orm:"column(descripcion);null"`
+	CodigoAbreviacion string `orm:"column(codigo_abreviacion);null"`
+	Estado            bool   `orm:"column(estado)"`
+	NumeroOrden       string `orm:"column(numero_orden);null"`
 }
 
 func (t *TipoContratoNecesidad) TableName() string {
@@ -50,7 +50,7 @@ func GetTipoContratoNecesidadById(id int) (v *TipoContratoNecesidad, err error) 
 func GetAllTipoContratoNecesidad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoContratoNecesidad))
+	qs := o.QueryTable(new(TipoContratoNecesidad)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

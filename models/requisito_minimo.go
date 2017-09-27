@@ -5,51 +5,49 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type NecesidadRechazada struct {
-	Id            int       `orm:"column(id);pk"`
-	Necesidad     int       `orm:"column(necesidad)"`
-	Justificacion string    `orm:"column(justificacion)"`
-	Fecha         time.Time `orm:"column(fecha);type(date)"`
+type RequisitoMinimo struct {
+	Id                    int                    `orm:"column(id);pk;auto"`
+	EspecificacionTecnica *EspecificacionTecnica `orm:"column(especificacion_tecnica);rel(fk)"`
+	Descripcion           string                 `orm:"column(descripcion)"`
 }
 
-func (t *NecesidadRechazada) TableName() string {
-	return "necesidad_rechazada"
+func (t *RequisitoMinimo) TableName() string {
+	return "requisito_minimo"
 }
 
 func init() {
-	orm.RegisterModel(new(NecesidadRechazada))
+	orm.RegisterModel(new(RequisitoMinimo))
 }
 
-// AddNecesidadRechazada insert a new NecesidadRechazada into database and returns
+// AddRequisitoMinimo insert a new RequisitoMinimo into database and returns
 // last inserted Id on success.
-func AddNecesidadRechazada(m *NecesidadRechazada) (id int64, err error) {
+func AddRequisitoMinimo(m *RequisitoMinimo) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetNecesidadRechazadaById retrieves NecesidadRechazada by Id. Returns error if
+// GetRequisitoMinimoById retrieves RequisitoMinimo by Id. Returns error if
 // Id doesn't exist
-func GetNecesidadRechazadaById(id int) (v *NecesidadRechazada, err error) {
+func GetRequisitoMinimoById(id int) (v *RequisitoMinimo, err error) {
 	o := orm.NewOrm()
-	v = &NecesidadRechazada{Id: id}
+	v = &RequisitoMinimo{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllNecesidadRechazada retrieves all NecesidadRechazada matches certain condition. Returns empty list if
+// GetAllRequisitoMinimo retrieves all RequisitoMinimo matches certain condition. Returns empty list if
 // no records exist
-func GetAllNecesidadRechazada(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllRequisitoMinimo(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(NecesidadRechazada))
+	qs := o.QueryTable(new(RequisitoMinimo)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -99,7 +97,7 @@ func GetAllNecesidadRechazada(query map[string]string, fields []string, sortby [
 		}
 	}
 
-	var l []NecesidadRechazada
+	var l []RequisitoMinimo
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -122,11 +120,11 @@ func GetAllNecesidadRechazada(query map[string]string, fields []string, sortby [
 	return nil, err
 }
 
-// UpdateNecesidadRechazada updates NecesidadRechazada by Id and returns error if
+// UpdateRequisitoMinimo updates RequisitoMinimo by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateNecesidadRechazadaById(m *NecesidadRechazada) (err error) {
+func UpdateRequisitoMinimoById(m *RequisitoMinimo) (err error) {
 	o := orm.NewOrm()
-	v := NecesidadRechazada{Id: m.Id}
+	v := RequisitoMinimo{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -137,15 +135,15 @@ func UpdateNecesidadRechazadaById(m *NecesidadRechazada) (err error) {
 	return
 }
 
-// DeleteNecesidadRechazada deletes NecesidadRechazada by Id and returns error if
+// DeleteRequisitoMinimo deletes RequisitoMinimo by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteNecesidadRechazada(id int) (err error) {
+func DeleteRequisitoMinimo(id int) (err error) {
 	o := orm.NewOrm()
-	v := NecesidadRechazada{Id: id}
+	v := RequisitoMinimo{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&NecesidadRechazada{Id: id}); err == nil {
+		if num, err = o.Delete(&RequisitoMinimo{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

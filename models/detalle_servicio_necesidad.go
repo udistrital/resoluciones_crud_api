@@ -10,11 +10,11 @@ import (
 )
 
 type DetalleServicioNecesidad struct {
-	Id                 int `orm:"column(id);pk"`
-	Perfil             int `orm:"column(perfil)"`
-	NucleoConocimiento int `orm:"column(nucleo_conocimiento)"`
-	Cantidad           int `orm:"column(cantidad)"`
-	Necesidad          int `orm:"column(necesidad)"`
+	Id                 int        `orm:"column(id);pk;auto"`
+	Perfil             int        `orm:"column(perfil)"`
+	NucleoConocimiento int        `orm:"column(nucleo_conocimiento)"`
+	Cantidad           int        `orm:"column(cantidad)"`
+	Necesidad          *Necesidad `orm:"column(necesidad);rel(fk)"`
 }
 
 func (t *DetalleServicioNecesidad) TableName() string {
@@ -49,7 +49,7 @@ func GetDetalleServicioNecesidadById(id int) (v *DetalleServicioNecesidad, err e
 func GetAllDetalleServicioNecesidad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DetalleServicioNecesidad))
+	qs := o.QueryTable(new(DetalleServicioNecesidad)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
