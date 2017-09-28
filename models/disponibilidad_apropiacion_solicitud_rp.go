@@ -10,7 +10,7 @@ import (
 )
 
 type DisponibilidadApropiacionSolicitudRp struct {
-	Id                        int          `orm:"column(id);pk"`
+	Id                        int          `orm:"column(id);pk;auto"`
 	DisponibilidadApropiacion int          `orm:"column(disponibilidad_apropiacion)"`
 	SolicitudRp               *SolicitudRp `orm:"column(solicitud_rp);rel(fk)"`
 	Monto                     float64      `orm:"column(monto)"`
