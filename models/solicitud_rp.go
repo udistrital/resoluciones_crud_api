@@ -17,7 +17,7 @@ type SolicitudRp struct {
 	Expedida             bool      `orm:"column(expedida);null"`
 	NumeroContrato       string    `orm:"column(numero_contrato)"`
 	VigenciaContrato     int       `orm:"column(vigencia_contrato);null"`
-	Id                   int       `orm:"column(id);pk"`
+	Id                   int       `orm:"column(id);pk;auto"`
 	Compromiso           int       `orm:"column(compromiso);null"`
 	JustificacionRechazo string    `orm:"column(justificacion_rechazo);null"`
 	Masivo               bool      `orm:"column(masivo);null"`
