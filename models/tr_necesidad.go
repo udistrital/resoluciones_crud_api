@@ -96,7 +96,7 @@ func AddTrNecesidad(m *TrNecesidad) (alerta []string, err error) {
 		}
 		if m.Necesidad.TipoContratoNecesidad.Id == 2 {
 			for _, va := range m.ActividadEconomicaNecesidad {
-				va.SolicitudNecesidad = &Necesidad{Id: int(id)}
+				va.Necesidad = &Necesidad{Id: int(id)}
 				//---
 				if _, err = o.Insert(va); err != nil {
 					o.Rollback()

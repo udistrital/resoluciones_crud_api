@@ -11,7 +11,7 @@ import (
 
 type ActividadEconomicaNecesidad struct {
 	Id                 int        `orm:"column(id);pk;auto"`
-	SolicitudNecesidad *Necesidad `orm:"column(solicitud_necesidad);rel(fk)"`
+	Necesidad          *Necesidad `orm:"column(necesidad);rel(fk)"`
 	ActividadEconomica string     `orm:"column(actividad_economica)"`
 }
 
