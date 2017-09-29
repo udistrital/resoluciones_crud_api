@@ -3,9 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/administrativa_crud_api/models"
 	"strconv"
 	"strings"
+
+	"github.com/udistrital/administrativa_crud_api/models"
 
 	"github.com/astaxie/beego"
 )
@@ -34,11 +35,11 @@ func (c *SolicitudDisponibilidadController) URLMapping() {
 func (c *SolicitudDisponibilidadController) Post() {
 	var v models.SolicitudDisponibilidad
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddSolicitudDisponibilidad(&v); err == nil {
+		if alerta, err := models.AddSolicitudDisponibilidad(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = alerta
 		} else {
-			c.Data["json"] = err.Error()
+			c.Data["json"] = alerta
 		}
 	} else {
 		c.Data["json"] = err.Error()

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -11,13 +12,13 @@ import (
 )
 
 type SolicitudDisponibilidad struct {
-	Id                   int       `orm:"column(id);pk"`
-	Numero               int       `orm:"column(numero)"`
-	Vigencia             float64   `orm:"column(vigencia)"`
-	FechaSolicitud       time.Time `orm:"column(fecha_solicitud);type(timestamp without time zone)"`
-	Necesidad            int       `orm:"column(necesidad)"`
-	Expedida             bool      `orm:"column(expedida)"`
-	JustificacionRechazo string    `orm:"column(justificacion_rechazo);null"`
+	Id                   int        `orm:"column(id);pk"`
+	Numero               int        `orm:"column(numero)"`
+	Vigencia             float64    `orm:"column(vigencia)"`
+	FechaSolicitud       time.Time  `orm:"column(fecha_solicitud);type(timestamp without time zone)"`
+	Necesidad            *Necesidad `orm:"column(necesidad);rel(fk)"`
+	Expedida             bool       `orm:"column(expedida)"`
+	JustificacionRechazo string     `orm:"column(justificacion_rechazo);null"`
 }
 
 func (t *SolicitudDisponibilidad) TableName() string {
@@ -30,10 +31,33 @@ func init() {
 
 // AddSolicitudDisponibilidad insert a new SolicitudDisponibilidad into database and returns
 // last inserted Id on success.
-func AddSolicitudDisponibilidad(m *SolicitudDisponibilidad) (id int64, err error) {
+func AddSolicitudDisponibilidad(m *SolicitudDisponibilidad) (alerta []string, err error) {
 	o := orm.NewOrm()
-	id, err = o.Insert(m)
-	return
+	o.Begin()
+	alerta = append(alerta, "success")
+	m.FechaSolicitud = time.Now()
+	m.Vigencia = float64((m.FechaSolicitud).Year())
+	m.Expedida = false
+	var a []int
+	_, err = o.Raw("SELECT COALESCE(MAX(numero), 0)+1 FROM administrativa.solicitud_disponibilidad WHERE vigencia=" + strconv.Itoa((m.FechaSolicitud).Year()) + ";").QueryRows(&a)
+	m.Numero = a[0]
+	if _, err = o.Insert(m); err != nil {
+		alerta[0] = "error"
+		alerta = append(alerta, "Error: ¡Ocurrió un error al insertar la solicitud de disponibilidad!")
+		o.Rollback()
+		return
+	} else {
+		m.Necesidad.EstadoNecesidad.Id = 7
+		if _, err = o.Update(m.Necesidad); err != nil {
+			alerta[0] = "error"
+			alerta = append(alerta, "Error: ¡Ocurrió un error al actualizar el estado de la necesidad!")
+			o.Rollback()
+			return
+		}
+	}
+	alerta = append(alerta, "La solicitud de disponibilidad No. "+strconv.Itoa(m.Numero)+" del "+strconv.Itoa((m.FechaSolicitud).Year())+" fué creada exitosamente")
+	o.Commit()
+	return alerta, err
 }
 
 // GetSolicitudDisponibilidadById retrieves SolicitudDisponibilidad by Id. Returns error if
