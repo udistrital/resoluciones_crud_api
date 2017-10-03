@@ -2289,14 +2289,6 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"],
 		beego.ControllerComments{
-			Method: "GetOne",
-			Router: `/:id`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams: param.Make(),
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"],
-		beego.ControllerComments{
 			Method: "Put",
 			Router: `/:id`,
 			AllowHTTPMethods: []string{"put"},
@@ -2308,6 +2300,38 @@ func init() {
 			Method: "Delete",
 			Router: `/:id`,
 			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"],
+		beego.ControllerComments{
+			Method: "GetOne",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"],
+		beego.ControllerComments{
+			Method: "CancelarResolucion",
+			Router: `/CancelarResolucion/:id`,
+			AllowHTTPMethods: []string{"put"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"],
+		beego.ControllerComments{
+			Method: "GenerarResolucion",
+			Router: `/GenerarResolucion`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionController"],
+		beego.ControllerComments{
+			Method: "RestaurarResolucion",
+			Router: `/RestaurarResolucion/:id`,
+			AllowHTTPMethods: []string{"put"},
 			MethodParams: param.Make(),
 			Params: nil})
 
