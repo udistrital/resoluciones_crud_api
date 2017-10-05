@@ -25,12 +25,12 @@ func (c *ContratoGeneralController) URLMapping() {
 
 }
 
-// Post ...
-// @Title Post Contratos
+// InsertarContratos ...
+// @Title Post InsertarContratos
 // @Description create ContratoGenerales
 // @Success 201 {int} models.ContratoGeneral
 // @Failure 403 body is empty
-// @router / [post]
+// @router /InsertarContratos [post]
 func (c *ContratoGeneralController) InsertarContratos() {
 	var v models.ExpedicionResolucion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
