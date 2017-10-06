@@ -10,7 +10,7 @@ import (
 )
 
 type ParametroContraloriaContrato struct {
-	Id                   int                   `orm:"column(id);pk"`
+	Id                   int                   `orm:"column(id);pk;auto"`
 	Contrato             *Contrato             `orm:"column(contrato);rel(fk)"`
 	ParametroContraloria *ParametroContraloria `orm:"column(parametro_contraloria);rel(fk)"`
 	Activo               bool                  `orm:"column(activo)"`

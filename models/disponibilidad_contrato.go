@@ -10,7 +10,7 @@ import (
 )
 
 type DisponibilidadContrato struct {
-	Id             int       `orm:"column(id);pk"`
+	Id             int       `orm:"column(id);pk;auto"`
 	Disponibilidad int       `orm:"column(disponibilidad)"`
 	Contrato       *Contrato `orm:"column(contrato);rel(fk)"`
 }

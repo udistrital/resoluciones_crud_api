@@ -11,7 +11,7 @@ import (
 )
 
 type ParametroContraloria struct {
-	Id                int                           `orm:"column(id);pk"`
+	Id                int                           `orm:"column(id);pk;auto"`
 	Descripcion       string                        `orm:"column(descripcion)"`
 	CodigoContraloria string                        `orm:"column(codigo_contraloria)"`
 	RelacionParametro *RelacionParametroContraloria `orm:"column(relacion_parametro);rel(fk)"`

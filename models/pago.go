@@ -10,7 +10,7 @@ import (
 )
 
 type Pago struct {
-	Id                 int          `orm:"column(id);pk"`
+	Id                 int          `orm:"column(id);pk;auto"`
 	DetalleLiquidacion int          `orm:"column(detalle_liquidacion)"`
 	Valor              float64      `orm:"column(valor)"`
 	TipoPago           *TipoPago    `orm:"column(tipo_pago);rel(fk)"`

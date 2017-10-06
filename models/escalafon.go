@@ -10,7 +10,7 @@ import (
 )
 
 type Escalafon struct {
-	Id              int    `orm:"column(id_escalafon);pk"`
+	Id              int    `orm:"column(id_escalafon);pk;auto"`
 	NombreEscalafon string `orm:"column(nombre_escalafon)"`
 	Descripcion     string `orm:"column(descripcion);null"`
 }

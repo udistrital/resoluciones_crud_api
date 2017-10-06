@@ -10,7 +10,7 @@ import (
 )
 
 type PeriodoPago struct {
-	Id              int     `orm:"column(id);pk"`
+	Id              int     `orm:"column(id);pk;auto"`
 	Mes             float64 `orm:"column(mes)"`
 	Anio            float64 `orm:"column(anio)"`
 	Liquidacion     int     `orm:"column(liquidacion)"`

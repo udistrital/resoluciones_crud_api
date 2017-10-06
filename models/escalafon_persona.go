@@ -11,7 +11,7 @@ import (
 )
 
 type EscalafonPersona struct {
-	Id               int        `orm:"column(id_escalafon_persona);pk"`
+	Id               int        `orm:"column(id_escalafon_persona);pk;auto"`
 	IdPersonaNatural float64    `orm:"column(id_persona_natural)"`
 	IdEscalafon      *Escalafon `orm:"column(id_escalafon);rel(fk)"`
 	FechaRegistro    time.Time  `orm:"column(fecha_registro);type(date)"`

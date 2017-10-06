@@ -11,7 +11,7 @@ import (
 )
 
 type AsignacionPensionUserRole struct {
-	Id                          int               `orm:"column(id);pk"`
+	Id                          int               `orm:"column(id);pk;auto"`
 	Pension                     *Pension          `orm:"column(pension);rel(fk)"`
 	PersonaAsignada             int               `orm:"column(persona_asignada)"`
 	EstadoRolPension            *EstadoRolPension `orm:"column(estado_rol_pension);rel(fk)"`

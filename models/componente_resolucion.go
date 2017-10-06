@@ -10,12 +10,12 @@ import (
 )
 
 type ComponenteResolucion struct {
-	Id              int                   `orm:"column(id);pk"`
+	Id              int                   `orm:"column(id);pk;auto"`
 	Numero          int                   `orm:"column(numero)"`
 	ResolucionId    *Resolucion           `orm:"column(resolucion_id);rel(fk)"`
 	Texto           string                `orm:"column(texto)"`
 	TipoComponente  string                `orm:"column(tipo_componente)"`
-	ComponentePadre *ComponenteResolucion `orm:"column(componente_padre);rel(fk)"`
+	ComponentePadre *ComponenteResolucion `orm:"column(componente_padre);rel(fk);null"`
 }
 
 func (t *ComponenteResolucion) TableName() string {
@@ -31,6 +31,8 @@ func init() {
 func AddComponenteResolucion(m *ComponenteResolucion) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
+	fmt.Println("hpta")
+	fmt.Println(err)
 	return
 }
 

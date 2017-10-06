@@ -11,7 +11,7 @@ import (
 )
 
 type RelacionPolizaAmparo struct {
-	Id              int              `orm:"column(id);pk"`
+	Id              int              `orm:"column(id);pk;auto"`
 	Amparo          int              `orm:"column(amparo);null"`
 	FechaInicio     time.Time        `orm:"column(fecha_inicio);type(timestamp without time zone)"`
 	FechaFinal      time.Time        `orm:"column(fecha_final);type(timestamp without time zone)"`

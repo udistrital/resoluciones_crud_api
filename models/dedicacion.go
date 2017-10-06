@@ -10,7 +10,7 @@ import (
 )
 
 type Dedicacion struct {
-	Id               int    `orm:"column(id_dedicacion);pk"`
+	Id               int    `orm:"column(id_dedicacion);pk;auto"`
 	NombreDedicacion string `orm:"column(nombre_dedicacion)"`
 	Descripcion      string `orm:"column(descripcion);null"`
 }

@@ -11,7 +11,7 @@ import (
 )
 
 type ConceptoNominaPorPersona struct {
-	Id            int             `orm:"column(id);pk"`
+	Id            int             `orm:"column(id);pk;auto"`
 	ValorNovedad  float64         `orm:"column(valor_novedad)"`
 	NumCuotas     float64         `orm:"column(num_cuotas)"`
 	Activo        bool            `orm:"column(activo)"`

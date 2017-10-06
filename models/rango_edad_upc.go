@@ -10,7 +10,7 @@ import (
 )
 
 type RangoEdadUpc struct {
-	Id           int     `orm:"column(id);pk"`
+	Id           int     `orm:"column(id);pk;auto"`
 	EdadMax      float64 `orm:"column(edad_max)"`
 	EdadMin      float64 `orm:"column(edad_min)"`
 	AplicaGenero string  `orm:"column(aplica_genero);null"`

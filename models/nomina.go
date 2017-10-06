@@ -10,7 +10,7 @@ import (
 )
 
 type Nomina struct {
-	Id          int         `orm:"column(id);pk"`
+	Id          int         `orm:"column(id);pk;auto"`
 	Descripcion string      `orm:"column(descripcion)"`
 	Activo      bool        `orm:"column(activo)"`
 	TipoNomina  *TipoNomina `orm:"column(tipo_nomina);rel(fk)"`

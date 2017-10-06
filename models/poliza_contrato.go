@@ -11,7 +11,7 @@ import (
 )
 
 type PolizaContrato struct {
-	Id                 int       `orm:"column(id);pk"`
+	Id                 int       `orm:"column(id);pk;auto"`
 	NumeroPoliza       string    `orm:"column(numero_poliza)"`
 	EntidadAseguradora int       `orm:"column(entidad_aseguradora)"`
 	FechaInicio        time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`

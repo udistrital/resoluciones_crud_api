@@ -10,7 +10,7 @@ import (
 )
 
 type TipoUpc struct {
-	Id           int           `orm:"column(id);pk"`
+	Id           int           `orm:"column(id);pk;auto"`
 	Valor        float64       `orm:"column(valor)"`
 	Vigencia     float64       `orm:"column(vigencia)"`
 	ZonaUpc      *ZonaUpc      `orm:"column(zona_upc);rel(fk)"`
