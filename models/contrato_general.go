@@ -47,8 +47,8 @@ type ContratoGeneral struct {
 	NumeroConstancia             int                 `orm:"column(numero_constancia);null"`
 	RegistroPresupuestal         int                 `orm:"column(resgistro_presupuestal);null"`
 	Estado                       bool                `orm:"column(estado);null"`
-	TipoContrato                 int                 `orm:"column(tipo_contrato)"`
-	//TipoContrato                 *TipoContrato       `orm:"column(tipo_contrato);rel(fk)"`
+	//TipoContrato                 int                 `orm:"column(tipo_contrato)"`
+	TipoContrato                 *TipoContrato       `orm:"column(tipo_contrato);rel(fk)"`
 	LugarEjecucion           *LugarEjecucion `orm:"column(lugar_ejecucion);rel(fk)"`
 	UnidadEjecucion          *Parametros     `orm:"column(unidad_ejecucion);rel(fk)"`
 	UnidadEjecutora          int             `orm:"column(unidad_ejecutora)"`
@@ -96,7 +96,7 @@ func AddContratosVinculcionEspecial(m ExpedicionResolucion) (err error) {
 	vigencia, _, _ := time.Now().Date()
 	numeroContratos := GetNumeroTotalContratoGeneralDVE(vigencia)
 	for _, vinculacion := range v {
-		numeroContratos = numeroContratos + 1
+		numeroContratos = numeroContratos + 2
 		v := vinculacion.VinculacionDocente
 		if err = o.Read(&v); err == nil {
 			if v.NumeroContrato == "" && v.Vigencia == 0 {
@@ -104,7 +104,6 @@ func AddContratosVinculcionEspecial(m ExpedicionResolucion) (err error) {
 				aux1 := 181
 				contrato.VigenciaContrato = vigencia
 				contrato.Id = "DVE" + strconv.Itoa(numeroContratos)
-				fmt.Println(contrato.Id)
 				contrato.FormaPago = &Parametros{Id: 240}
 				contrato.DescripcionFormaPago = "Abono a Cuenta Mensual de acuerdo a puntos y horas laboradas"
 				contrato.Justificacion = "Docente de Vinculacion Especial"
