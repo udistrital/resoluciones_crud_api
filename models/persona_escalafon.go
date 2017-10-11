@@ -22,7 +22,7 @@ func init() {
 func GetAllPersonaEscalafon() (arregloIDs []PersonaEscalafon) {
 	o := orm.NewOrm()
 	var temp []PersonaEscalafon
-	_, err := o.Raw("SELECT p.num_documento_persona id, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, nombre_escalafon escalafon FROM agora.informacion_persona_natural p, administrativa.escalafon_persona ep, administrativa.escalafon e WHERE p.num_documento_persona=ep.id_persona_natural AND ep.id_escalafon=e.id_escalafon;").QueryRows(&temp)
+	_, err := o.Raw("SELECT ipn.num_documento_persona id, ipn.primer_nombre, ipn.segundo_nombre, ipn.primer_apellido, ipn.segundo_apellido, e.nombre_escalafon escalafon FROM agora.informacion_persona_natural ipn INNER JOIN agora.informacion_proveedor ip ON ipn.num_documento_persona = ip.num_documento INNER JOIN administrativa.escalafon_persona ep ON ip.id_proveedor = ep.id_persona_natural INNER JOIN administrativa.escalafon e ON ep.id_escalafon = e.id_escalafon;").QueryRows(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}
