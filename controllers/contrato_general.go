@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"strings"
-	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -21,10 +20,11 @@ func (c *ContratoGeneralController) URLMapping() {
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
-	c.Mapping("InsertarContratos", c.InsertarContratos)
+	//c.Mapping("InsertarContratos", c.InsertarContratos)
 
 }
 
+/*
 // InsertarContratos ...
 // @Title Post InsertarContratos
 // @Description create ContratoGenerales
@@ -47,7 +47,7 @@ func (c *ContratoGeneralController) InsertarContratos() {
 	fmt.Println(c.Data)
 	c.ServeJSON()
 }
-
+*/
 // Post ...
 // @Title Post
 // @Description create ContratoGeneral

@@ -48,7 +48,7 @@ type ContratoGeneral struct {
 	RegistroPresupuestal         int                 `orm:"column(resgistro_presupuestal);null"`
 	Estado                       bool                `orm:"column(estado);null"`
 	//TipoContrato                 int                 `orm:"column(tipo_contrato)"`
-	TipoContrato                 *TipoContrato       `orm:"column(tipo_contrato);rel(fk)"`
+	//TipoContrato                 *TipoContrato       `orm:"column(tipo_contrato);rel(fk)"`
 	LugarEjecucion           *LugarEjecucion `orm:"column(lugar_ejecucion);rel(fk)"`
 	UnidadEjecucion          *Parametros     `orm:"column(unidad_ejecucion);rel(fk)"`
 	UnidadEjecutora          int             `orm:"column(unidad_ejecutora)"`
@@ -89,6 +89,7 @@ func GetNumeroTotalContratoGeneralDVE(vigencia int) (n int) {
 	return temp[0].NumeroTotal
 }
 
+/*
 func AddContratosVinculcionEspecial(m ExpedicionResolucion) (err error) {
 	o := orm.NewOrm()
 	v := m.Vinculaciones
@@ -206,7 +207,7 @@ func AddContratosVinculcionEspecial(m ExpedicionResolucion) (err error) {
 	o.Commit()
 	return
 }
-
+*/
 // AddContratoGeneral insert a new ContratoGeneral into database and returns
 // last inserted Id on success.
 func AddContratoGeneral(m *ContratoGeneral) (id int64, err error) {
