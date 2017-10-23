@@ -11,7 +11,7 @@ import (
 
 type NecesidadProcesoExterno struct {
 	Id             int            `orm:"column(id);pk;auto"`
-	Necesidad      *Necesidad     `orm:"column(necesidad);rel(fk)"`
+	Necesidad      *Necesidad     `orm:"column(necesidad);rel(fk);null"`
 	ProcesoExterno int            `orm:"column(proceso_externo)"`
 	TipoNecesidad  *TipoNecesidad `orm:"column(tipo_necesidad);rel(fk)"`
 }
