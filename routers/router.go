@@ -501,6 +501,24 @@ func init() {
 				&controllers.SupervisorContratoController{},
 			),
 		),
+
+		beego.NSNamespace("/pago_mensual",
+			beego.NSInclude(
+				&controllers.SupervisorContratoController{},
+			),
+		),
+
+		beego.NSNamespace("/estado_pago_mensual",
+			beego.NSInclude(
+				&controllers.SupervisorContratoController{},
+			),
+		),
+
+		beego.NSNamespace("/pago_mensual_estado_pago_mensual",
+			beego.NSInclude(
+				&controllers.SupervisorContratoController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
