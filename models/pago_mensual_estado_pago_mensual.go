@@ -11,7 +11,7 @@ import (
 )
 
 type PagoMensualEstadoPagoMensual struct {
-	Id                int                `orm:"column(id);pk"`
+	Id                int                `orm:"column(id);pk;auto"`
 	PagoMensual       *PagoMensual       `orm:"column(pago_mensual);rel(fk)"`
 	EstadoPagoMensual *EstadoPagoMensual `orm:"column(estado_pago_mensual);rel(fk)"`
 	Responsable       int                `orm:"column(responsable)"`

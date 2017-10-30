@@ -10,7 +10,7 @@ import (
 )
 
 type PagoMensual struct {
-	Id               int     `orm:"column(id);pk"`
+	Id               int     `orm:"column(id);pk;auto"`
 	NumeroContrato   string  `orm:"column(numero_contrato)"`
 	VigenciaContrato float64 `orm:"column(vigencia_contrato)"`
 	Mes              float64 `orm:"column(mes)"`
