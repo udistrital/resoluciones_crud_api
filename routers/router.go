@@ -504,19 +504,19 @@ func init() {
 
 		beego.NSNamespace("/pago_mensual",
 			beego.NSInclude(
-				&controllers.SupervisorContratoController{},
+				&controllers.PagoMensualController{},
 			),
 		),
 
 		beego.NSNamespace("/estado_pago_mensual",
 			beego.NSInclude(
-				&controllers.SupervisorContratoController{},
+				&controllers.EstadoPagoMensualController{},
 			),
 		),
 
 		beego.NSNamespace("/pago_mensual_estado_pago_mensual",
 			beego.NSInclude(
-				&controllers.SupervisorContratoController{},
+				&controllers.PagoMensualEstadoPagoMensualController{},
 			),
 		),
 	)
