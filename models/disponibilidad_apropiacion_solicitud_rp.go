@@ -99,7 +99,7 @@ func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields 
 	}
 
 	var l []DisponibilidadApropiacionSolicitudRp
-	qs = qs.OrderBy(sortFields...)
+	qs = qs.OrderBy(sortFields...).RelatedSel(5)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
