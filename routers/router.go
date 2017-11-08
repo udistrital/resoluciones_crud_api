@@ -484,6 +484,12 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/tr_necesidad_docente",
+			beego.NSInclude(
+				&controllers.TrNecesidadDocenteController{},
+			),
+		),
+
 		beego.NSNamespace("/vigencia_contrato",
 			beego.NSInclude(
 				&controllers.VigenciaContratoController{},
