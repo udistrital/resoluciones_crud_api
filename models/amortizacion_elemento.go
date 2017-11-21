@@ -10,52 +10,47 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Entrada struct {
-	Id            int            `orm:"column(id);pk"`
-	Vigencia      float64        `orm:"column(vigencia)"`
-	NumeroEntrada int            `orm:"column(numero_entrada)"`
-	FechaRegistro time.Time      `orm:"column(fecha_registro);type(date)"`
-	Observaciones string         `orm:"column(observaciones);null"`
-	EnlaceSoporte string         `orm:"column(enlace_soporte)"`
-	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
-	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
-	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
-	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk)"`
+type AmortizacionElemento struct {
+	Id                 int                 `orm:"column(id);pk"`
+	FechaAmortizacion  time.Time           `orm:"column(fecha_amortizacion);type(timestamp without time zone)"`
+	BodegaSalidaBodega *BodegaSalidaBodega `orm:"column(bodega_salida_bodega);rel(fk)"`
+	Descripcion        string              `orm:"column(descripcion);null"`
+	ValorPorcentaje    float64             `orm:"column(valor_porcentaje)"`
 }
 
-func (t *Entrada) TableName() string {
-	return "entrada"
+func (t *AmortizacionElemento) TableName() string {
+	return "amortizacion_elemento"
 }
 
 func init() {
-	orm.RegisterModel(new(Entrada))
+	orm.RegisterModel(new(AmortizacionElemento))
 }
 
-// AddEntrada insert a new Entrada into database and returns
+// AddAmortizacionElemento insert a new AmortizacionElemento into database and returns
 // last inserted Id on success.
-func AddEntrada(m *Entrada) (id int64, err error) {
+func AddAmortizacionElemento(m *AmortizacionElemento) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetEntradaById retrieves Entrada by Id. Returns error if
+// GetAmortizacionElementoById retrieves AmortizacionElemento by Id. Returns error if
 // Id doesn't exist
-func GetEntradaById(id int) (v *Entrada, err error) {
+func GetAmortizacionElementoById(id int) (v *AmortizacionElemento, err error) {
 	o := orm.NewOrm()
-	v = &Entrada{Id: id}
+	v = &AmortizacionElemento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllEntrada retrieves all Entrada matches certain condition. Returns empty list if
+// GetAllAmortizacionElemento retrieves all AmortizacionElemento matches certain condition. Returns empty list if
 // no records exist
-func GetAllEntrada(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllAmortizacionElemento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Entrada))
+	qs := o.QueryTable(new(AmortizacionElemento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -105,7 +100,7 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 		}
 	}
 
-	var l []Entrada
+	var l []AmortizacionElemento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -128,11 +123,11 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 	return nil, err
 }
 
-// UpdateEntrada updates Entrada by Id and returns error if
+// UpdateAmortizacionElemento updates AmortizacionElemento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateEntradaById(m *Entrada) (err error) {
+func UpdateAmortizacionElementoById(m *AmortizacionElemento) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: m.Id}
+	v := AmortizacionElemento{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -143,15 +138,15 @@ func UpdateEntradaById(m *Entrada) (err error) {
 	return
 }
 
-// DeleteEntrada deletes Entrada by Id and returns error if
+// DeleteAmortizacionElemento deletes AmortizacionElemento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteEntrada(id int) (err error) {
+func DeleteAmortizacionElemento(id int) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: id}
+	v := AmortizacionElemento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Entrada{Id: id}); err == nil {
+		if num, err = o.Delete(&AmortizacionElemento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

@@ -5,57 +5,50 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Entrada struct {
-	Id            int            `orm:"column(id);pk"`
-	Vigencia      float64        `orm:"column(vigencia)"`
-	NumeroEntrada int            `orm:"column(numero_entrada)"`
-	FechaRegistro time.Time      `orm:"column(fecha_registro);type(date)"`
-	Observaciones string         `orm:"column(observaciones);null"`
-	EnlaceSoporte string         `orm:"column(enlace_soporte)"`
-	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
-	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
-	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
-	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk)"`
+type Bodega struct {
+	Id                           int                           `orm:"column(id);pk"`
+	Cantidad                     int                           `orm:"column(cantidad)"`
+	ContratoElementoActaRecibido *ContratoElementoActaRecibido `orm:"column(contrato_elemento_acta_recibido);rel(fk)"`
+	Salida                       *Salida                       `orm:"column(salida);rel(fk)"`
 }
 
-func (t *Entrada) TableName() string {
-	return "entrada"
+func (t *Bodega) TableName() string {
+	return "bodega"
 }
 
 func init() {
-	orm.RegisterModel(new(Entrada))
+	orm.RegisterModel(new(Bodega))
 }
 
-// AddEntrada insert a new Entrada into database and returns
+// AddBodega insert a new Bodega into database and returns
 // last inserted Id on success.
-func AddEntrada(m *Entrada) (id int64, err error) {
+func AddBodega(m *Bodega) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetEntradaById retrieves Entrada by Id. Returns error if
+// GetBodegaById retrieves Bodega by Id. Returns error if
 // Id doesn't exist
-func GetEntradaById(id int) (v *Entrada, err error) {
+func GetBodegaById(id int) (v *Bodega, err error) {
 	o := orm.NewOrm()
-	v = &Entrada{Id: id}
+	v = &Bodega{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllEntrada retrieves all Entrada matches certain condition. Returns empty list if
+// GetAllBodega retrieves all Bodega matches certain condition. Returns empty list if
 // no records exist
-func GetAllEntrada(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllBodega(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Entrada))
+	qs := o.QueryTable(new(Bodega))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -105,7 +98,7 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 		}
 	}
 
-	var l []Entrada
+	var l []Bodega
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -128,11 +121,11 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 	return nil, err
 }
 
-// UpdateEntrada updates Entrada by Id and returns error if
+// UpdateBodega updates Bodega by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateEntradaById(m *Entrada) (err error) {
+func UpdateBodegaById(m *Bodega) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: m.Id}
+	v := Bodega{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -143,15 +136,15 @@ func UpdateEntradaById(m *Entrada) (err error) {
 	return
 }
 
-// DeleteEntrada deletes Entrada by Id and returns error if
+// DeleteBodega deletes Bodega by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteEntrada(id int) (err error) {
+func DeleteBodega(id int) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: id}
+	v := Bodega{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Entrada{Id: id}); err == nil {
+		if num, err = o.Delete(&Bodega{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

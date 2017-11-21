@@ -5,57 +5,50 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Entrada struct {
-	Id            int            `orm:"column(id);pk"`
-	Vigencia      float64        `orm:"column(vigencia)"`
-	NumeroEntrada int            `orm:"column(numero_entrada)"`
-	FechaRegistro time.Time      `orm:"column(fecha_registro);type(date)"`
-	Observaciones string         `orm:"column(observaciones);null"`
-	EnlaceSoporte string         `orm:"column(enlace_soporte)"`
-	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
-	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
-	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
-	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk)"`
+type SubtipoMovimiento struct {
+	Id             int             `orm:"column(id);pk"`
+	Nombre         string          `orm:"column(nombre)"`
+	Descripcion    string          `orm:"column(descripcion);null"`
+	TipoMovimiento *TipoMovimiento `orm:"column(tipo_movimiento);rel(fk)"`
 }
 
-func (t *Entrada) TableName() string {
-	return "entrada"
+func (t *SubtipoMovimiento) TableName() string {
+	return "subtipo_movimiento"
 }
 
 func init() {
-	orm.RegisterModel(new(Entrada))
+	orm.RegisterModel(new(SubtipoMovimiento))
 }
 
-// AddEntrada insert a new Entrada into database and returns
+// AddSubtipoMovimiento insert a new SubtipoMovimiento into database and returns
 // last inserted Id on success.
-func AddEntrada(m *Entrada) (id int64, err error) {
+func AddSubtipoMovimiento(m *SubtipoMovimiento) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetEntradaById retrieves Entrada by Id. Returns error if
+// GetSubtipoMovimientoById retrieves SubtipoMovimiento by Id. Returns error if
 // Id doesn't exist
-func GetEntradaById(id int) (v *Entrada, err error) {
+func GetSubtipoMovimientoById(id int) (v *SubtipoMovimiento, err error) {
 	o := orm.NewOrm()
-	v = &Entrada{Id: id}
+	v = &SubtipoMovimiento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllEntrada retrieves all Entrada matches certain condition. Returns empty list if
+// GetAllSubtipoMovimiento retrieves all SubtipoMovimiento matches certain condition. Returns empty list if
 // no records exist
-func GetAllEntrada(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllSubtipoMovimiento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Entrada))
+	qs := o.QueryTable(new(SubtipoMovimiento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -105,7 +98,7 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 		}
 	}
 
-	var l []Entrada
+	var l []SubtipoMovimiento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -128,11 +121,11 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 	return nil, err
 }
 
-// UpdateEntrada updates Entrada by Id and returns error if
+// UpdateSubtipoMovimiento updates SubtipoMovimiento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateEntradaById(m *Entrada) (err error) {
+func UpdateSubtipoMovimientoById(m *SubtipoMovimiento) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: m.Id}
+	v := SubtipoMovimiento{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -143,15 +136,15 @@ func UpdateEntradaById(m *Entrada) (err error) {
 	return
 }
 
-// DeleteEntrada deletes Entrada by Id and returns error if
+// DeleteSubtipoMovimiento deletes SubtipoMovimiento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteEntrada(id int) (err error) {
+func DeleteSubtipoMovimiento(id int) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: id}
+	v := SubtipoMovimiento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Entrada{Id: id}); err == nil {
+		if num, err = o.Delete(&SubtipoMovimiento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

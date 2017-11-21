@@ -5,57 +5,56 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Entrada struct {
-	Id            int            `orm:"column(id);pk"`
-	Vigencia      float64        `orm:"column(vigencia)"`
-	NumeroEntrada int            `orm:"column(numero_entrada)"`
-	FechaRegistro time.Time      `orm:"column(fecha_registro);type(date)"`
-	Observaciones string         `orm:"column(observaciones);null"`
-	EnlaceSoporte string         `orm:"column(enlace_soporte)"`
-	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
-	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
-	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
-	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk)"`
+type ContratoElementoActaRecibido struct {
+	Id               int               `orm:"column(id);pk"`
+	Cantidad         int               `orm:"column(cantidad)"`
+	Elemento         string            `orm:"column(elemento)"`
+	Marca            string            `orm:"column(marca);null"`
+	Serie            string            `orm:"column(serie);null"`
+	VidaUtil         int               `orm:"column(vida_util);null"`
+	SubgrupoCatalogo *SubgrupoCatalogo `orm:"column(subgrupo_catalogo);rel(fk)"`
+	ContratoElemento int               `orm:"column(contrato_elemento)"`
+	Unidad           int               `orm:"column(unidad)"`
+	ActaRecibido     *ActaRecibido     `orm:"column(acta_recibido);rel(fk)"`
 }
 
-func (t *Entrada) TableName() string {
-	return "entrada"
+func (t *ContratoElementoActaRecibido) TableName() string {
+	return "contrato_elemento_acta_recibido"
 }
 
 func init() {
-	orm.RegisterModel(new(Entrada))
+	orm.RegisterModel(new(ContratoElementoActaRecibido))
 }
 
-// AddEntrada insert a new Entrada into database and returns
+// AddContratoElementoActaRecibido insert a new ContratoElementoActaRecibido into database and returns
 // last inserted Id on success.
-func AddEntrada(m *Entrada) (id int64, err error) {
+func AddContratoElementoActaRecibido(m *ContratoElementoActaRecibido) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetEntradaById retrieves Entrada by Id. Returns error if
+// GetContratoElementoActaRecibidoById retrieves ContratoElementoActaRecibido by Id. Returns error if
 // Id doesn't exist
-func GetEntradaById(id int) (v *Entrada, err error) {
+func GetContratoElementoActaRecibidoById(id int) (v *ContratoElementoActaRecibido, err error) {
 	o := orm.NewOrm()
-	v = &Entrada{Id: id}
+	v = &ContratoElementoActaRecibido{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllEntrada retrieves all Entrada matches certain condition. Returns empty list if
+// GetAllContratoElementoActaRecibido retrieves all ContratoElementoActaRecibido matches certain condition. Returns empty list if
 // no records exist
-func GetAllEntrada(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllContratoElementoActaRecibido(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Entrada))
+	qs := o.QueryTable(new(ContratoElementoActaRecibido))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -105,7 +104,7 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 		}
 	}
 
-	var l []Entrada
+	var l []ContratoElementoActaRecibido
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -128,11 +127,11 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 	return nil, err
 }
 
-// UpdateEntrada updates Entrada by Id and returns error if
+// UpdateContratoElementoActaRecibido updates ContratoElementoActaRecibido by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateEntradaById(m *Entrada) (err error) {
+func UpdateContratoElementoActaRecibidoById(m *ContratoElementoActaRecibido) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: m.Id}
+	v := ContratoElementoActaRecibido{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -143,15 +142,15 @@ func UpdateEntradaById(m *Entrada) (err error) {
 	return
 }
 
-// DeleteEntrada deletes Entrada by Id and returns error if
+// DeleteContratoElementoActaRecibido deletes ContratoElementoActaRecibido by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteEntrada(id int) (err error) {
+func DeleteContratoElementoActaRecibido(id int) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: id}
+	v := ContratoElementoActaRecibido{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Entrada{Id: id}); err == nil {
+		if num, err = o.Delete(&ContratoElementoActaRecibido{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

@@ -5,57 +5,52 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Entrada struct {
-	Id            int            `orm:"column(id);pk"`
-	Vigencia      float64        `orm:"column(vigencia)"`
-	NumeroEntrada int            `orm:"column(numero_entrada)"`
-	FechaRegistro time.Time      `orm:"column(fecha_registro);type(date)"`
-	Observaciones string         `orm:"column(observaciones);null"`
-	EnlaceSoporte string         `orm:"column(enlace_soporte)"`
-	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
-	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
-	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
-	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk)"`
+type TipoBien struct {
+	Id                int     `orm:"column(id);pk"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Estado            bool    `orm:"column(estado)"`
+	Orden             float64 `orm:"column(orden);null"`
 }
 
-func (t *Entrada) TableName() string {
-	return "entrada"
+func (t *TipoBien) TableName() string {
+	return "tipo_bien"
 }
 
 func init() {
-	orm.RegisterModel(new(Entrada))
+	orm.RegisterModel(new(TipoBien))
 }
 
-// AddEntrada insert a new Entrada into database and returns
+// AddTipoBien insert a new TipoBien into database and returns
 // last inserted Id on success.
-func AddEntrada(m *Entrada) (id int64, err error) {
+func AddTipoBien(m *TipoBien) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetEntradaById retrieves Entrada by Id. Returns error if
+// GetTipoBienById retrieves TipoBien by Id. Returns error if
 // Id doesn't exist
-func GetEntradaById(id int) (v *Entrada, err error) {
+func GetTipoBienById(id int) (v *TipoBien, err error) {
 	o := orm.NewOrm()
-	v = &Entrada{Id: id}
+	v = &TipoBien{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllEntrada retrieves all Entrada matches certain condition. Returns empty list if
+// GetAllTipoBien retrieves all TipoBien matches certain condition. Returns empty list if
 // no records exist
-func GetAllEntrada(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllTipoBien(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Entrada))
+	qs := o.QueryTable(new(TipoBien))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -105,7 +100,7 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 		}
 	}
 
-	var l []Entrada
+	var l []TipoBien
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -128,11 +123,11 @@ func GetAllEntrada(query map[string]string, fields []string, sortby []string, or
 	return nil, err
 }
 
-// UpdateEntrada updates Entrada by Id and returns error if
+// UpdateTipoBien updates TipoBien by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateEntradaById(m *Entrada) (err error) {
+func UpdateTipoBienById(m *TipoBien) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: m.Id}
+	v := TipoBien{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -143,15 +138,15 @@ func UpdateEntradaById(m *Entrada) (err error) {
 	return
 }
 
-// DeleteEntrada deletes Entrada by Id and returns error if
+// DeleteTipoBien deletes TipoBien by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteEntrada(id int) (err error) {
+func DeleteTipoBien(id int) (err error) {
 	o := orm.NewOrm()
-	v := Entrada{Id: id}
+	v := TipoBien{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Entrada{Id: id}); err == nil {
+		if num, err = o.Delete(&TipoBien{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

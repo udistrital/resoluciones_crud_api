@@ -16,6 +16,186 @@ import (
 func init() {
 	ns := beego.NewNamespace("/v1",
 
+		beego.NSNamespace("/tipo_bien",
+			beego.NSInclude(
+				&controllers.TipoBienController{},
+			),
+		),
+
+		beego.NSNamespace("/estado_inventario",
+			beego.NSInclude(
+				&controllers.EstadoInventarioController{},
+			),
+		),
+
+		beego.NSNamespace("/salida_bodega",
+			beego.NSInclude(
+				&controllers.SalidaBodegaController{},
+			),
+		),
+
+		beego.NSNamespace("/bodega",
+			beego.NSInclude(
+				&controllers.BodegaController{},
+			),
+		),
+
+		beego.NSNamespace("/salida",
+			beego.NSInclude(
+				&controllers.SalidaController{},
+			),
+		),
+
+		beego.NSNamespace("/estado_acta_recibido",
+			beego.NSInclude(
+				&controllers.EstadoActaRecibidoController{},
+			),
+		),
+
+		beego.NSNamespace("/catalogo",
+			beego.NSInclude(
+				&controllers.CatalogoController{},
+			),
+		),
+
+		beego.NSNamespace("/valorizacion_elemento",
+			beego.NSInclude(
+				&controllers.ValorizacionElementoController{},
+			),
+		),
+
+		beego.NSNamespace("/cambio_vida_util",
+			beego.NSInclude(
+				&controllers.CambioVidaUtilController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_documento_soporte",
+			beego.NSInclude(
+				&controllers.TipoDocumentoSoporteController{},
+			),
+		),
+
+		beego.NSNamespace("/documento_soporte_acta",
+			beego.NSInclude(
+				&controllers.DocumentoSoporteActaController{},
+			),
+		),
+
+		beego.NSNamespace("/estado_entrada",
+			beego.NSInclude(
+				&controllers.EstadoEntradaController{},
+			),
+		),
+
+		beego.NSNamespace("/reposicion",
+			beego.NSInclude(
+				&controllers.ReposicionController{},
+			),
+		),
+
+		beego.NSNamespace("/entrada",
+			beego.NSInclude(
+				&controllers.EntradaController{},
+			),
+		),
+
+		beego.NSNamespace("/ipc",
+			beego.NSInclude(
+				&controllers.IpcController{},
+			),
+		),
+
+		beego.NSNamespace("/verificacion_nicsp",
+			beego.NSInclude(
+				&controllers.VerificacionNicspController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_entrada",
+			beego.NSInclude(
+				&controllers.TipoEntradaController{},
+			),
+		),
+
+		beego.NSNamespace("/grupo",
+			beego.NSInclude(
+				&controllers.GrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/subgrupo_catalogo",
+			beego.NSInclude(
+				&controllers.SubgrupoCatalogoController{},
+			),
+		),
+
+		beego.NSNamespace("/acta_recibido",
+			beego.NSInclude(
+				&controllers.ActaRecibidoController{},
+			),
+		),
+
+		beego.NSNamespace("/contrato_elemento_acta_recibido",
+			beego.NSInclude(
+				&controllers.ContratoElementoActaRecibidoController{},
+			),
+		),
+
+		beego.NSNamespace("/inventario",
+			beego.NSInclude(
+				&controllers.InventarioController{},
+			),
+		),
+
+		beego.NSNamespace("/movimiento",
+			beego.NSInclude(
+				&controllers.MovimientoController{},
+			),
+		),
+
+		beego.NSNamespace("/inventario_movimiento",
+			beego.NSInclude(
+				&controllers.InventarioMovimientoController{},
+			),
+		),
+
+		beego.NSNamespace("/bodega_salida_bodega",
+			beego.NSInclude(
+				&controllers.BodegaSalidaBodegaController{},
+			),
+		),
+
+		beego.NSNamespace("/amortizacion_elemento",
+			beego.NSInclude(
+				&controllers.AmortizacionElementoController{},
+			),
+		),
+
+		beego.NSNamespace("/subgrupo",
+			beego.NSInclude(
+				&controllers.SubgrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/subgrupo_subgrupo",
+			beego.NSInclude(
+				&controllers.SubgrupoSubgrupoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_movimiento",
+			beego.NSInclude(
+				&controllers.TipoMovimientoController{},
+			),
+		),
+
+		beego.NSNamespace("/subtipo_movimiento",
+			beego.NSInclude(
+				&controllers.SubtipoMovimientoController{},
+			),
+		),
+
 		beego.NSNamespace("/solicitud_disponibilidad",
 			beego.NSInclude(
 				&controllers.SolicitudDisponibilidadController{},
