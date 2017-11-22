@@ -3060,9 +3060,9 @@ paths:
   /estado_pago_mensual/:
     get:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: get SupervisorContrato
-      operationId: SupervisorContratoController.Get All
+      - estado_pago_mensual
+      description: get EstadoPagoMensual
+      operationId: EstadoPagoMensualController.Get All
       parameters:
       - in: query
         name: query
@@ -3093,32 +3093,32 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.EstadoPagoMensual'
         "403":
           description: ""
     post:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: create SupervisorContrato
-      operationId: SupervisorContratoController.Post
+      - estado_pago_mensual
+      description: create EstadoPagoMensual
+      operationId: EstadoPagoMensualController.Post
       parameters:
       - in: body
         name: body
-        description: body for SupervisorContrato content
+        description: body for EstadoPagoMensual content
         required: true
         schema:
-          $ref: '#/definitions/models.SupervisorContrato'
+          $ref: '#/definitions/models.EstadoPagoMensual'
       responses:
         "201":
-          description: '{int} models.SupervisorContrato'
+          description: '{int} models.EstadoPagoMensual'
         "403":
           description: body is empty
   /estado_pago_mensual/{id}:
     get:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: get SupervisorContrato by id
-      operationId: SupervisorContratoController.Get One
+      - estado_pago_mensual
+      description: get EstadoPagoMensual by id
+      operationId: EstadoPagoMensualController.Get One
       parameters:
       - in: path
         name: id
@@ -3129,14 +3129,14 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.EstadoPagoMensual'
         "403":
           description: :id is empty
     put:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: update the SupervisorContrato
-      operationId: SupervisorContratoController.Put
+      - estado_pago_mensual
+      description: update the EstadoPagoMensual
+      operationId: EstadoPagoMensualController.Put
       parameters:
       - in: path
         name: id
@@ -3145,22 +3145,22 @@ paths:
         type: string
       - in: body
         name: body
-        description: body for SupervisorContrato content
+        description: body for EstadoPagoMensual content
         required: true
         schema:
-          $ref: '#/definitions/models.SupervisorContrato'
+          $ref: '#/definitions/models.EstadoPagoMensual'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.EstadoPagoMensual'
         "403":
           description: :id is not int
     delete:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: delete the SupervisorContrato
-      operationId: SupervisorContratoController.Delete
+      - estado_pago_mensual
+      description: delete the EstadoPagoMensual
+      operationId: EstadoPagoMensualController.Delete
       parameters:
       - in: path
         name: id
@@ -4670,9 +4670,9 @@ paths:
   /pago_mensual/:
     get:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: get SupervisorContrato
-      operationId: SupervisorContratoController.Get All
+      - pago_mensual
+      description: get PagoMensual
+      operationId: PagoMensualController.Get All
       parameters:
       - in: query
         name: query
@@ -4703,32 +4703,32 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.PagoMensual'
         "403":
           description: ""
     post:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: create SupervisorContrato
-      operationId: SupervisorContratoController.Post
+      - pago_mensual
+      description: create PagoMensual
+      operationId: PagoMensualController.Post
       parameters:
       - in: body
         name: body
-        description: body for SupervisorContrato content
+        description: body for PagoMensual content
         required: true
         schema:
-          $ref: '#/definitions/models.SupervisorContrato'
+          $ref: '#/definitions/models.PagoMensual'
       responses:
         "201":
-          description: '{int} models.SupervisorContrato'
+          description: '{int} models.PagoMensual'
         "403":
           description: body is empty
   /pago_mensual/{id}:
     get:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: get SupervisorContrato by id
-      operationId: SupervisorContratoController.Get One
+      - pago_mensual
+      description: get PagoMensual by id
+      operationId: PagoMensualController.Get One
       parameters:
       - in: path
         name: id
@@ -4739,14 +4739,14 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.PagoMensual'
         "403":
           description: :id is empty
     put:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: update the SupervisorContrato
-      operationId: SupervisorContratoController.Put
+      - pago_mensual
+      description: update the PagoMensual
+      operationId: PagoMensualController.Put
       parameters:
       - in: path
         name: id
@@ -4755,22 +4755,22 @@ paths:
         type: string
       - in: body
         name: body
-        description: body for SupervisorContrato content
+        description: body for PagoMensual content
         required: true
         schema:
-          $ref: '#/definitions/models.SupervisorContrato'
+          $ref: '#/definitions/models.PagoMensual'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.PagoMensual'
         "403":
           description: :id is not int
     delete:
       tags:
-      - pago_mensual_estado_pago_mensual
-      description: delete the SupervisorContrato
-      operationId: SupervisorContratoController.Delete
+      - pago_mensual
+      description: delete the PagoMensual
+      operationId: PagoMensualController.Delete
       parameters:
       - in: path
         name: id
@@ -4786,8 +4786,8 @@ paths:
     get:
       tags:
       - pago_mensual_estado_pago_mensual
-      description: get SupervisorContrato
-      operationId: SupervisorContratoController.Get All
+      description: get PagoMensualEstadoPagoMensual
+      operationId: PagoMensualEstadoPagoMensualController.Get All
       parameters:
       - in: query
         name: query
@@ -4818,32 +4818,32 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.PagoMensualEstadoPagoMensual'
         "403":
           description: ""
     post:
       tags:
       - pago_mensual_estado_pago_mensual
-      description: create SupervisorContrato
-      operationId: SupervisorContratoController.Post
+      description: create PagoMensualEstadoPagoMensual
+      operationId: PagoMensualEstadoPagoMensualController.Post
       parameters:
       - in: body
         name: body
-        description: body for SupervisorContrato content
+        description: body for PagoMensualEstadoPagoMensual content
         required: true
         schema:
-          $ref: '#/definitions/models.SupervisorContrato'
+          $ref: '#/definitions/models.PagoMensualEstadoPagoMensual'
       responses:
         "201":
-          description: '{int} models.SupervisorContrato'
+          description: '{int} models.PagoMensualEstadoPagoMensual'
         "403":
           description: body is empty
   /pago_mensual_estado_pago_mensual/{id}:
     get:
       tags:
       - pago_mensual_estado_pago_mensual
-      description: get SupervisorContrato by id
-      operationId: SupervisorContratoController.Get One
+      description: get PagoMensualEstadoPagoMensual by id
+      operationId: PagoMensualEstadoPagoMensualController.Get One
       parameters:
       - in: path
         name: id
@@ -4854,14 +4854,14 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.PagoMensualEstadoPagoMensual'
         "403":
           description: :id is empty
     put:
       tags:
       - pago_mensual_estado_pago_mensual
-      description: update the SupervisorContrato
-      operationId: SupervisorContratoController.Put
+      description: update the PagoMensualEstadoPagoMensual
+      operationId: PagoMensualEstadoPagoMensualController.Put
       parameters:
       - in: path
         name: id
@@ -4870,22 +4870,22 @@ paths:
         type: string
       - in: body
         name: body
-        description: body for SupervisorContrato content
+        description: body for PagoMensualEstadoPagoMensual content
         required: true
         schema:
-          $ref: '#/definitions/models.SupervisorContrato'
+          $ref: '#/definitions/models.PagoMensualEstadoPagoMensual'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.SupervisorContrato'
+            $ref: '#/definitions/models.PagoMensualEstadoPagoMensual'
         "403":
           description: :id is not int
     delete:
       tags:
       - pago_mensual_estado_pago_mensual
-      description: delete the SupervisorContrato
-      operationId: SupervisorContratoController.Delete
+      description: delete the PagoMensualEstadoPagoMensual
+      operationId: PagoMensualEstadoPagoMensualController.Delete
       parameters:
       - in: path
         name: id
@@ -7360,10 +7360,125 @@ paths:
           description: '{string} delete success!'
         "403":
           description: id is empty
+  /soporte_pago_mensual/:
+    get:
+      tags:
+      - soporte_pago_mensual
+      description: get SoportePagoMensual
+      operationId: SoportePagoMensualController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SoportePagoMensual'
+        "403":
+          description: ""
+    post:
+      tags:
+      - soporte_pago_mensual
+      description: create SoportePagoMensual
+      operationId: SoportePagoMensualController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for SoportePagoMensual content
+        required: true
+        schema:
+          $ref: '#/definitions/models.SoportePagoMensual'
+      responses:
+        "201":
+          description: '{int} models.SoportePagoMensual'
+        "403":
+          description: body is empty
+  /soporte_pago_mensual/{id}:
+    get:
+      tags:
+      - soporte_pago_mensual
+      description: get SoportePagoMensual by id
+      operationId: SoportePagoMensualController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SoportePagoMensual'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - soporte_pago_mensual
+      description: update the SoportePagoMensual
+      operationId: SoportePagoMensualController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for SoportePagoMensual content
+        required: true
+        schema:
+          $ref: '#/definitions/models.SoportePagoMensual'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.SoportePagoMensual'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - soporte_pago_mensual
+      description: delete the SoportePagoMensual
+      operationId: SoportePagoMensualController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
   /supervisor_contrato/:
     get:
       tags:
-      - pago_mensual_estado_pago_mensual
+      - supervisor_contrato
       description: get SupervisorContrato
       operationId: SupervisorContratoController.Get All
       parameters:
@@ -7401,7 +7516,7 @@ paths:
           description: ""
     post:
       tags:
-      - pago_mensual_estado_pago_mensual
+      - supervisor_contrato
       description: create SupervisorContrato
       operationId: SupervisorContratoController.Post
       parameters:
@@ -7419,7 +7534,7 @@ paths:
   /supervisor_contrato/{id}:
     get:
       tags:
-      - pago_mensual_estado_pago_mensual
+      - supervisor_contrato
       description: get SupervisorContrato by id
       operationId: SupervisorContratoController.Get One
       parameters:
@@ -7437,7 +7552,7 @@ paths:
           description: :id is empty
     put:
       tags:
-      - pago_mensual_estado_pago_mensual
+      - supervisor_contrato
       description: update the SupervisorContrato
       operationId: SupervisorContratoController.Put
       parameters:
@@ -7461,7 +7576,7 @@ paths:
           description: :id is not int
     delete:
       tags:
-      - pago_mensual_estado_pago_mensual
+      - supervisor_contrato
       description: delete the SupervisorContrato
       operationId: SupervisorContratoController.Delete
       parameters:
@@ -10744,6 +10859,18 @@ definitions:
       VigenciaContrato:
         type: integer
         format: int64
+  models.SoportePagoMensual:
+    title: SoportePagoMensual
+    type: object
+    properties:
+      Documento:
+        type: integer
+        format: int64
+      Id:
+        type: integer
+        format: int64
+      PagoMensual:
+        $ref: '#/definitions/models.PagoMensual'
   models.SupervisorContrato:
     title: SupervisorContrato
     type: object
@@ -11346,10 +11473,13 @@ tags:
     SupervisorContratoController operations for SupervisorContrato
 - name: pago_mensual
   description: |
-    SupervisorContratoController operations for SupervisorContrato
+    PagoMensualController operations for PagoMensual
 - name: estado_pago_mensual
   description: |
-    SupervisorContratoController operations for SupervisorContrato
+    EstadoPagoMensualController operations for EstadoPagoMensual
 - name: pago_mensual_estado_pago_mensual
   description: |
-    SupervisorContratoController operations for SupervisorContrato
+    PagoMensualEstadoPagoMensualController operations for PagoMensualEstadoPagoMensual
+- name: soporte_pago_mensual
+  description: |
+    SoportePagoMensualController operations for SoportePagoMensual
