@@ -14,7 +14,7 @@ type EstadoEntrada struct {
 	Nombre            string  `orm:"column(nombre)"`
 	Descripcion       string  `orm:"column(descripcion);null"`
 	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
-	Estado            bool    `orm:"column(estado)"`
+	Activo            bool    `orm:"column(activo)"`
 	Orden             float64 `orm:"column(orden);null"`
 }
 
