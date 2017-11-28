@@ -27,7 +27,7 @@ func (c *SolicitudDisponibilidadController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create SolicitudDisponibilidad
+// @Description create SolicitudDisponibilidad it calculates the consecutive number and insert the availability CDP request 
 // @Param	body		body 	models.SolicitudDisponibilidad	true		"body for SolicitudDisponibilidad content"
 // @Success 201 {int} models.SolicitudDisponibilidad
 // @Failure 403 body is empty

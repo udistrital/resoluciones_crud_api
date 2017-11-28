@@ -17,9 +17,9 @@ func (c *TrNecesidadDocenteController) URLMapping() {
 }
 
 // @Title TrNecesidadDocente
-// @Description insert the TrNecesidadDocente
+// @Description insert the TrNecesidadDocente in the tables Necesidad, FuenteFinanciacionRubroNecesidad, MarcoLegalNecesidad, DependenciaNecesidad
 // @Param	body		body 	models.TrNecesidadDocente	true	"body for TrNecesidadDocente content"
-// @Success 200 {object} msg
+// @Success 201 {object} msg
 // @Failure 403 :id is not int
 // @router / [post]
 func (c *TrNecesidadDocenteController) Post() {

@@ -3,9 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/administrativa_crud_api/models"
 	"strconv"
 	"strings"
+
+	"github.com/udistrital/administrativa_crud_api/models"
 
 	"github.com/astaxie/beego"
 )
@@ -130,7 +131,7 @@ func (c *NecesidadController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the Necesidad
+// @Description update the Necesidad it calculates the consecutive number and update the need
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.Necesidad	true		"body for Necesidad content"
 // @Success 200 {object} models.Necesidad
@@ -141,7 +142,7 @@ func (c *NecesidadController) Put() {
 	id, _ := strconv.Atoi(idStr)
 	v := models.Necesidad{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if alert,err := models.UpdateNecesidadById(&v); err == nil {
+		if alert, err := models.UpdateNecesidadById(&v); err == nil {
 			c.Data["json"] = alert
 		} else {
 			c.Data["json"] = err.Error()
