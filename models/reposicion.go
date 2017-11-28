@@ -11,7 +11,7 @@ import (
 )
 
 type Reposicion struct {
-	Id            int         `orm:"column(id);pk"`
+	Id            int         `orm:"column(id);pk;auto"`
 	FechaRegistro time.Time   `orm:"column(fecha_registro);type(date)"`
 	Elemento      string      `orm:"column(elemento)"`
 	Marca         string      `orm:"column(marca);null"`
@@ -53,7 +53,7 @@ func GetReposicionById(id int) (v *Reposicion, err error) {
 func GetAllReposicion(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Reposicion))
+	qs := o.QueryTable(new(Reposicion)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

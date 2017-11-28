@@ -10,7 +10,7 @@ import (
 )
 
 type Ipc struct {
-	Id                  int         `orm:"column(id);pk"`
+	Id                  int         `orm:"column(id);pk;auto"`
 	Año                 int         `orm:"column(año)"`
 	Mes                 int         `orm:"column(mes)"`
 	Clave               int         `orm:"column(clave)"`
@@ -54,7 +54,7 @@ func GetIpcById(id int) (v *Ipc, err error) {
 func GetAllIpc(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Ipc))
+	qs := o.QueryTable(new(Ipc)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

@@ -11,7 +11,7 @@ import (
 )
 
 type VerificacionNicsp struct {
-	Id            int         `orm:"column(id);pk"`
+	Id            int         `orm:"column(id);pk;auto"`
 	Verificado    bool        `orm:"column(verificado)"`
 	FechaRegistro time.Time   `orm:"column(fecha_registro);type(date)"`
 	ValorMercado  float64     `orm:"column(valor_mercado)"`
@@ -50,7 +50,7 @@ func GetVerificacionNicspById(id int) (v *VerificacionNicsp, err error) {
 func GetAllVerificacionNicsp(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(VerificacionNicsp))
+	qs := o.QueryTable(new(VerificacionNicsp)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

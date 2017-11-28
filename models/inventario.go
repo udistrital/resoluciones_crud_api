@@ -11,7 +11,7 @@ import (
 )
 
 type Inventario struct {
-	Id                           int                           `orm:"column(id);pk"`
+	Id                           int                           `orm:"column(id);pk;auto"`
 	Placa                        string                        `orm:"column(placa)"`
 	ValidacionElemento           bool                          `orm:"column(validacion_elemento)"`
 	Salida                       *Salida                       `orm:"column(salida);rel(fk)"`
@@ -56,7 +56,7 @@ func GetInventarioById(id int) (v *Inventario, err error) {
 func GetAllInventario(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Inventario))
+	qs := o.QueryTable(new(Inventario)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

@@ -10,7 +10,7 @@ import (
 )
 
 type Bodega struct {
-	Id                           int                           `orm:"column(id);pk"`
+	Id                           int                           `orm:"column(id);pk;auto"`
 	Cantidad                     int                           `orm:"column(cantidad)"`
 	ContratoElementoActaRecibido *ContratoElementoActaRecibido `orm:"column(contrato_elemento_acta_recibido);rel(fk)"`
 	Salida                       *Salida                       `orm:"column(salida);rel(fk)"`
@@ -48,7 +48,7 @@ func GetBodegaById(id int) (v *Bodega, err error) {
 func GetAllBodega(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Bodega))
+	qs := o.QueryTable(new(Bodega)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

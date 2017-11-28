@@ -11,7 +11,7 @@ import (
 )
 
 type SalidaBodega struct {
-	Id            int       `orm:"column(id);pk"`
+	Id            int       `orm:"column(id);pk;auto"`
 	Funcionario   int       `orm:"column(funcionario)"`
 	FechaRegistro time.Time `orm:"column(fecha_registro);type(date)"`
 	EspacioFisico int       `orm:"column(espacio_fisico)"`
@@ -52,7 +52,7 @@ func GetSalidaBodegaById(id int) (v *SalidaBodega, err error) {
 func GetAllSalidaBodega(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(SalidaBodega))
+	qs := o.QueryTable(new(SalidaBodega)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

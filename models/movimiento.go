@@ -11,7 +11,7 @@ import (
 )
 
 type Movimiento struct {
-	Id                          int                `orm:"column(id);pk"`
+	Id                          int                `orm:"column(id);pk;auto"`
 	Consecutivo                 int                `orm:"column(consecutivo)"`
 	Vigencia                    float64            `orm:"column(vigencia)"`
 	SubtipoMovimiento           *SubtipoMovimiento `orm:"column(subtipo_movimiento);rel(fk)"`
@@ -56,7 +56,7 @@ func GetMovimientoById(id int) (v *Movimiento, err error) {
 func GetAllMovimiento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Movimiento))
+	qs := o.QueryTable(new(Movimiento)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

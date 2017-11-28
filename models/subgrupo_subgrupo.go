@@ -10,7 +10,7 @@ import (
 )
 
 type SubgrupoSubgrupo struct {
-	Id            int       `orm:"column(id);pk"`
+	Id            int       `orm:"column(id);pk;auto"`
 	SubgrupoPadre *Subgrupo `orm:"column(subgrupo_padre);rel(fk)"`
 	SubgrupoHijo  *Subgrupo `orm:"column(subgrupo_hijo);rel(fk)"`
 }
@@ -47,7 +47,7 @@ func GetSubgrupoSubgrupoById(id int) (v *SubgrupoSubgrupo, err error) {
 func GetAllSubgrupoSubgrupo(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(SubgrupoSubgrupo))
+	qs := o.QueryTable(new(SubgrupoSubgrupo)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

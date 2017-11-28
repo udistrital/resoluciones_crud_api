@@ -11,7 +11,7 @@ import (
 )
 
 type ValorizacionElemento struct {
-	Id            int         `orm:"column(id);pk"`
+	Id            int         `orm:"column(id);pk;auto"`
 	Descripcion   string      `orm:"column(descripcion)"`
 	Valor         float64     `orm:"column(valor)"`
 	FechaRegistro time.Time   `orm:"column(fecha_registro);type(date)"`
@@ -50,7 +50,7 @@ func GetValorizacionElementoById(id int) (v *ValorizacionElemento, err error) {
 func GetAllValorizacionElemento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ValorizacionElemento))
+	qs := o.QueryTable(new(ValorizacionElemento)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

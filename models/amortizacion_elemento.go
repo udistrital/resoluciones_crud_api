@@ -11,7 +11,7 @@ import (
 )
 
 type AmortizacionElemento struct {
-	Id                 int                 `orm:"column(id);pk"`
+	Id                 int                 `orm:"column(id);pk;auto"`
 	FechaAmortizacion  time.Time           `orm:"column(fecha_amortizacion);type(timestamp without time zone)"`
 	BodegaSalidaBodega *BodegaSalidaBodega `orm:"column(bodega_salida_bodega);rel(fk)"`
 	Descripcion        string              `orm:"column(descripcion);null"`
@@ -50,7 +50,7 @@ func GetAmortizacionElementoById(id int) (v *AmortizacionElemento, err error) {
 func GetAllAmortizacionElemento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(AmortizacionElemento))
+	qs := o.QueryTable(new(AmortizacionElemento)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

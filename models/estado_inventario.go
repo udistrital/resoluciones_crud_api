@@ -10,7 +10,7 @@ import (
 )
 
 type EstadoInventario struct {
-	Id                int     `orm:"column(id);pk"`
+	Id                int     `orm:"column(id);pk;auto"`
 	Nombre            string  `orm:"column(nombre)"`
 	Descripcion       string  `orm:"column(descripcion);null"`
 	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
@@ -50,7 +50,7 @@ func GetEstadoInventarioById(id int) (v *EstadoInventario, err error) {
 func GetAllEstadoInventario(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(EstadoInventario))
+	qs := o.QueryTable(new(EstadoInventario)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
