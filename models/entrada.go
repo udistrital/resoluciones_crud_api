@@ -20,7 +20,7 @@ type Entrada struct {
 	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
 	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
 	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
-	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk)"`
+	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk);null"`
 }
 
 func (t *Entrada) TableName() string {

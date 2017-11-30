@@ -94,12 +94,6 @@ func init() {
 			),
 		),
 
-		beego.NSNamespace("/entrada",
-			beego.NSInclude(
-				&controllers.EntradaController{},
-			),
-		),
-
 		beego.NSNamespace("/ipc",
 			beego.NSInclude(
 				&controllers.IpcController{},
