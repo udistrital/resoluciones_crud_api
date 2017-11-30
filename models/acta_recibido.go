@@ -5,50 +5,54 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type DisponibilidadApropiacionSolicitudRp struct {
-	Id                        int          `orm:"column(id);pk;auto"`
-	DisponibilidadApropiacion int          `orm:"column(disponibilidad_apropiacion)"`
-	SolicitudRp               *SolicitudRp `orm:"column(solicitud_rp);rel(fk)"`
-	Monto                     float64      `orm:"column(monto)"`
+type ActaRecibido struct {
+	Id            int                 `orm:"column(id);pk;auto"`
+	FechaRecibido time.Time           `orm:"column(fecha_recibido);type(date)"`
+	FechaRegistro time.Time           `orm:"column(fecha_registro);type(date)"`
+	Revisor       string              `orm:"column(revisor)"`
+	Sede          string              `orm:"column(sede)"`
+	Observaciones string              `orm:"column(observaciones);null"`
+	Estado        *EstadoActaRecibido `orm:"column(estado);rel(fk)"`
 }
 
-func (t *DisponibilidadApropiacionSolicitudRp) TableName() string {
-	return "disponibilidad_apropiacion_solicitud_rp"
+func (t *ActaRecibido) TableName() string {
+	return "acta_recibido"
 }
 
 func init() {
-	orm.RegisterModel(new(DisponibilidadApropiacionSolicitudRp))
+	orm.RegisterModel(new(ActaRecibido))
 }
 
-// AddDisponibilidadApropiacionSolicitudRp insert a new DisponibilidadApropiacionSolicitudRp into database and returns
+// AddActaRecibido insert a new ActaRecibido into database and returns
 // last inserted Id on success.
-func AddDisponibilidadApropiacionSolicitudRp(m *DisponibilidadApropiacionSolicitudRp) (id int64, err error) {
+func AddActaRecibido(m *ActaRecibido) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetDisponibilidadApropiacionSolicitudRpById retrieves DisponibilidadApropiacionSolicitudRp by Id. Returns error if
+// GetActaRecibidoById retrieves ActaRecibido by Id. Returns error if
 // Id doesn't exist
-func GetDisponibilidadApropiacionSolicitudRpById(id int) (v *DisponibilidadApropiacionSolicitudRp, err error) {
+func GetActaRecibidoById(id int) (v *ActaRecibido, err error) {
 	o := orm.NewOrm()
-	v = &DisponibilidadApropiacionSolicitudRp{Id: id}
+	v = &ActaRecibido{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllDisponibilidadApropiacionSolicitudRp retrieves all DisponibilidadApropiacionSolicitudRp matches certain condition. Returns empty list if
+// GetAllActaRecibido retrieves all ActaRecibido matches certain condition. Returns empty list if
 // no records exist
-func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllActaRecibido(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DisponibilidadApropiacionSolicitudRp))
+	qs := o.QueryTable(new(ActaRecibido)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -98,8 +102,8 @@ func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields 
 		}
 	}
 
-	var l []DisponibilidadApropiacionSolicitudRp
-	qs = qs.OrderBy(sortFields...).RelatedSel(5)
+	var l []ActaRecibido
+	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
@@ -121,11 +125,11 @@ func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields 
 	return nil, err
 }
 
-// UpdateDisponibilidadApropiacionSolicitudRp updates DisponibilidadApropiacionSolicitudRp by Id and returns error if
+// UpdateActaRecibido updates ActaRecibido by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateDisponibilidadApropiacionSolicitudRpById(m *DisponibilidadApropiacionSolicitudRp) (err error) {
+func UpdateActaRecibidoById(m *ActaRecibido) (err error) {
 	o := orm.NewOrm()
-	v := DisponibilidadApropiacionSolicitudRp{Id: m.Id}
+	v := ActaRecibido{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -136,15 +140,15 @@ func UpdateDisponibilidadApropiacionSolicitudRpById(m *DisponibilidadApropiacion
 	return
 }
 
-// DeleteDisponibilidadApropiacionSolicitudRp deletes DisponibilidadApropiacionSolicitudRp by Id and returns error if
+// DeleteActaRecibido deletes ActaRecibido by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteDisponibilidadApropiacionSolicitudRp(id int) (err error) {
+func DeleteActaRecibido(id int) (err error) {
 	o := orm.NewOrm()
-	v := DisponibilidadApropiacionSolicitudRp{Id: id}
+	v := ActaRecibido{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&DisponibilidadApropiacionSolicitudRp{Id: id}); err == nil {
+		if num, err = o.Delete(&ActaRecibido{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

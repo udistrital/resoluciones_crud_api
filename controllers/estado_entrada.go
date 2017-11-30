@@ -3,21 +3,20 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/udistrital/administrativa_crud_api/models"
 	"strconv"
 	"strings"
-
-	"github.com/udistrital/administrativa_crud_api/models"
 
 	"github.com/astaxie/beego"
 )
 
-// NecesidadController operations for Necesidad
-type NecesidadController struct {
+// EstadoEntradaController operations for EstadoEntrada
+type EstadoEntradaController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *NecesidadController) URLMapping() {
+func (c *EstadoEntradaController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -27,15 +26,15 @@ func (c *NecesidadController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create Necesidad
-// @Param	body		body 	models.Necesidad	true		"body for Necesidad content"
-// @Success 201 {int} models.Necesidad
+// @Description create EstadoEntrada
+// @Param	body		body 	models.EstadoEntrada	true		"body for EstadoEntrada content"
+// @Success 201 {int} models.EstadoEntrada
 // @Failure 403 body is empty
 // @router / [post]
-func (c *NecesidadController) Post() {
-	var v models.Necesidad
+func (c *EstadoEntradaController) Post() {
+	var v models.EstadoEntrada
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddNecesidad(&v); err == nil {
+		if _, err := models.AddEstadoEntrada(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -49,15 +48,15 @@ func (c *NecesidadController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get Necesidad by id
+// @Description get EstadoEntrada by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.Necesidad
+// @Success 200 {object} models.EstadoEntrada
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *NecesidadController) GetOne() {
+func (c *EstadoEntradaController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetNecesidadById(id)
+	v, err := models.GetEstadoEntradaById(id)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -68,17 +67,17 @@ func (c *NecesidadController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get Necesidad
+// @Description get EstadoEntrada
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.Necesidad
+// @Success 200 {object} models.EstadoEntrada
 // @Failure 403
 // @router / [get]
-func (c *NecesidadController) GetAll() {
+func (c *EstadoEntradaController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -120,7 +119,7 @@ func (c *NecesidadController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllNecesidad(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllEstadoEntrada(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -131,19 +130,19 @@ func (c *NecesidadController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the Necesidad it calculates the consecutive number and update the need
+// @Description update the EstadoEntrada
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.Necesidad	true		"body for Necesidad content"
-// @Success 200 {object} models.Necesidad
+// @Param	body		body 	models.EstadoEntrada	true		"body for EstadoEntrada content"
+// @Success 200 {object} models.EstadoEntrada
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *NecesidadController) Put() {
+func (c *EstadoEntradaController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.Necesidad{Id: id}
+	v := models.EstadoEntrada{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if alert, err := models.UpdateNecesidadById(&v); err == nil {
-			c.Data["json"] = alert
+		if err := models.UpdateEstadoEntradaById(&v); err == nil {
+			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
 		}
@@ -155,15 +154,15 @@ func (c *NecesidadController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the Necesidad
+// @Description delete the EstadoEntrada
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *NecesidadController) Delete() {
+func (c *EstadoEntradaController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteNecesidad(id); err == nil {
+	if err := models.DeleteEstadoEntrada(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()

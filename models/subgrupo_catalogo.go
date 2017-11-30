@@ -9,46 +9,46 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type DisponibilidadApropiacionSolicitudRp struct {
-	Id                        int          `orm:"column(id);pk;auto"`
-	DisponibilidadApropiacion int          `orm:"column(disponibilidad_apropiacion)"`
-	SolicitudRp               *SolicitudRp `orm:"column(solicitud_rp);rel(fk)"`
-	Monto                     float64      `orm:"column(monto)"`
+type SubgrupoCatalogo struct {
+	Id       int       `orm:"column(id);pk;auto"`
+	Activo   bool      `orm:"column(activo)"`
+	Catalogo *Catalogo `orm:"column(catalogo);rel(fk)"`
+	Subgrupo *Subgrupo `orm:"column(subgrupo);rel(fk)"`
 }
 
-func (t *DisponibilidadApropiacionSolicitudRp) TableName() string {
-	return "disponibilidad_apropiacion_solicitud_rp"
+func (t *SubgrupoCatalogo) TableName() string {
+	return "subgrupo_catalogo"
 }
 
 func init() {
-	orm.RegisterModel(new(DisponibilidadApropiacionSolicitudRp))
+	orm.RegisterModel(new(SubgrupoCatalogo))
 }
 
-// AddDisponibilidadApropiacionSolicitudRp insert a new DisponibilidadApropiacionSolicitudRp into database and returns
+// AddSubgrupoCatalogo insert a new SubgrupoCatalogo into database and returns
 // last inserted Id on success.
-func AddDisponibilidadApropiacionSolicitudRp(m *DisponibilidadApropiacionSolicitudRp) (id int64, err error) {
+func AddSubgrupoCatalogo(m *SubgrupoCatalogo) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetDisponibilidadApropiacionSolicitudRpById retrieves DisponibilidadApropiacionSolicitudRp by Id. Returns error if
+// GetSubgrupoCatalogoById retrieves SubgrupoCatalogo by Id. Returns error if
 // Id doesn't exist
-func GetDisponibilidadApropiacionSolicitudRpById(id int) (v *DisponibilidadApropiacionSolicitudRp, err error) {
+func GetSubgrupoCatalogoById(id int) (v *SubgrupoCatalogo, err error) {
 	o := orm.NewOrm()
-	v = &DisponibilidadApropiacionSolicitudRp{Id: id}
+	v = &SubgrupoCatalogo{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllDisponibilidadApropiacionSolicitudRp retrieves all DisponibilidadApropiacionSolicitudRp matches certain condition. Returns empty list if
+// GetAllSubgrupoCatalogo retrieves all SubgrupoCatalogo matches certain condition. Returns empty list if
 // no records exist
-func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllSubgrupoCatalogo(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DisponibilidadApropiacionSolicitudRp))
+	qs := o.QueryTable(new(SubgrupoCatalogo)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -98,8 +98,8 @@ func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields 
 		}
 	}
 
-	var l []DisponibilidadApropiacionSolicitudRp
-	qs = qs.OrderBy(sortFields...).RelatedSel(5)
+	var l []SubgrupoCatalogo
+	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
@@ -121,11 +121,11 @@ func GetAllDisponibilidadApropiacionSolicitudRp(query map[string]string, fields 
 	return nil, err
 }
 
-// UpdateDisponibilidadApropiacionSolicitudRp updates DisponibilidadApropiacionSolicitudRp by Id and returns error if
+// UpdateSubgrupoCatalogo updates SubgrupoCatalogo by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateDisponibilidadApropiacionSolicitudRpById(m *DisponibilidadApropiacionSolicitudRp) (err error) {
+func UpdateSubgrupoCatalogoById(m *SubgrupoCatalogo) (err error) {
 	o := orm.NewOrm()
-	v := DisponibilidadApropiacionSolicitudRp{Id: m.Id}
+	v := SubgrupoCatalogo{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -136,15 +136,15 @@ func UpdateDisponibilidadApropiacionSolicitudRpById(m *DisponibilidadApropiacion
 	return
 }
 
-// DeleteDisponibilidadApropiacionSolicitudRp deletes DisponibilidadApropiacionSolicitudRp by Id and returns error if
+// DeleteSubgrupoCatalogo deletes SubgrupoCatalogo by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteDisponibilidadApropiacionSolicitudRp(id int) (err error) {
+func DeleteSubgrupoCatalogo(id int) (err error) {
 	o := orm.NewOrm()
-	v := DisponibilidadApropiacionSolicitudRp{Id: id}
+	v := SubgrupoCatalogo{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&DisponibilidadApropiacionSolicitudRp{Id: id}); err == nil {
+		if num, err = o.Delete(&SubgrupoCatalogo{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

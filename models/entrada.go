@@ -11,30 +11,16 @@ import (
 )
 
 type Entrada struct {
-	Id                      int       `orm:"column(id_entrada);pk;auto"`
-	FechaRegistro           time.Time `orm:"column(fecha_registro);type(date);null"`
-	Consecutivo             int       `orm:"column(consecutivo)"`
-	Vigencia                string    `orm:"column(vigencia);null"`
-	ClaseEntrada            int       `orm:"column(clase_entrada);null"`
-	InfoClase               int       `orm:"column(info_clase);null"`
-	TipoContrato            int       `orm:"column(tipo_contrato);null"`
-	NumeroContrato          string    `orm:"column(numero_contrato);null"`
-	FechaContrato           time.Time `orm:"column(fecha_contrato);type(date);null"`
-	Proveedor               float64   `orm:"column(proveedor);null"`
-	NumeroFactura           string    `orm:"column(numero_factura);null"`
-	FechaFactura            time.Time `orm:"column(fecha_factura);type(date);null"`
-	Observaciones           string    `orm:"column(observaciones);null"`
-	ActaRecibido            int       `orm:"column(acta_recibido);null"`
-	Ordenador               int       `orm:"column(ordenador);null"`
-	TipoOrdenador           int       `orm:"column(tipo_ordenador);null"`
-	IdentificacionOrdenador int       `orm:"column(identificacion_ordenador);null"`
-	Sede                    string    `orm:"column(sede);null"`
-	Dependencia             string    `orm:"column(dependencia);null"`
-	Supervisor              string    `orm:"column(supervisor);null"`
-	EstadoEntrada           int       `orm:"column(estado_entrada)"`
-	EstadoRegistro          bool      `orm:"column(estado_registro)"`
-	CierreContable          bool      `orm:"column(cierre_contable);null"`
-	IdCierrecontable        float64   `orm:"column(id_cierrecontable);null"`
+	Id            int            `orm:"column(id);pk;auto"`
+	Vigencia      float64        `orm:"column(vigencia)"`
+	NumeroEntrada int            `orm:"column(numero_entrada)"`
+	FechaRegistro time.Time      `orm:"column(fecha_registro);type(date)"`
+	Observaciones string         `orm:"column(observaciones);null"`
+	EnlaceSoporte string         `orm:"column(enlace_soporte)"`
+	Estado        *EstadoEntrada `orm:"column(estado);rel(fk)"`
+	TipoEntrada   *TipoEntrada   `orm:"column(tipo_entrada);rel(fk)"`
+	ActaRecibido  *ActaRecibido  `orm:"column(acta_recibido);rel(fk)"`
+	Reposicion    *Reposicion    `orm:"column(reposicion);rel(fk);null"`
 }
 
 func (t *Entrada) TableName() string {
@@ -69,7 +55,7 @@ func GetEntradaById(id int) (v *Entrada, err error) {
 func GetAllEntrada(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Entrada))
+	qs := o.QueryTable(new(Entrada)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
