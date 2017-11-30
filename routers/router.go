@@ -514,12 +514,6 @@ func init() {
 			),
 		),
 
-		beego.NSNamespace("/pago_mensual_estado_pago_mensual",
-			beego.NSInclude(
-				&controllers.PagoMensualEstadoPagoMensualController{},
-			),
-		),
-
 		beego.NSNamespace("/soporte_pago_mensual",
 			beego.NSInclude(
 				&controllers.SoportePagoMensualController{},
