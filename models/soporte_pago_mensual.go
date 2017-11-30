@@ -5,53 +5,49 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type PagoMensualEstadoPagoMensual struct {
-	Id                int                `orm:"column(id);pk;auto"`
-	PagoMensual       *PagoMensual       `orm:"column(pago_mensual);rel(fk)"`
-	EstadoPagoMensual *EstadoPagoMensual `orm:"column(estado_pago_mensual);rel(fk)"`
-	Responsable       int                `orm:"column(responsable)"`
-	Fecha             time.Time          `orm:"column(fecha);type(timestamp without time zone)"`
-	CargoResponsable  string             `orm:"column(cargo_responsable)"`
+type SoportePagoMensual struct {
+	Id          int          `orm:"column(id);pk"`
+	PagoMensual *PagoMensual `orm:"column(pago_mensual);rel(fk)"`
+	Documento   int          `orm:"column(documento)"`
 }
 
-func (t *PagoMensualEstadoPagoMensual) TableName() string {
-	return "pago_mensual_estado_pago_mensual"
+func (t *SoportePagoMensual) TableName() string {
+	return "soporte_pago_mensual"
 }
 
 func init() {
-	orm.RegisterModel(new(PagoMensualEstadoPagoMensual))
+	orm.RegisterModel(new(SoportePagoMensual))
 }
 
-// AddPagoMensualEstadoPagoMensual insert a new PagoMensualEstadoPagoMensual into database and returns
+// AddSoportePagoMensual insert a new SoportePagoMensual into database and returns
 // last inserted Id on success.
-func AddPagoMensualEstadoPagoMensual(m *PagoMensualEstadoPagoMensual) (id int64, err error) {
+func AddSoportePagoMensual(m *SoportePagoMensual) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetPagoMensualEstadoPagoMensualById retrieves PagoMensualEstadoPagoMensual by Id. Returns error if
+// GetSoportePagoMensualById retrieves SoportePagoMensual by Id. Returns error if
 // Id doesn't exist
-func GetPagoMensualEstadoPagoMensualById(id int) (v *PagoMensualEstadoPagoMensual, err error) {
+func GetSoportePagoMensualById(id int) (v *SoportePagoMensual, err error) {
 	o := orm.NewOrm()
-	v = &PagoMensualEstadoPagoMensual{Id: id}
+	v = &SoportePagoMensual{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllPagoMensualEstadoPagoMensual retrieves all PagoMensualEstadoPagoMensual matches certain condition. Returns empty list if
+// GetAllSoportePagoMensual retrieves all SoportePagoMensual matches certain condition. Returns empty list if
 // no records exist
-func GetAllPagoMensualEstadoPagoMensual(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllSoportePagoMensual(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(PagoMensualEstadoPagoMensual))
+	qs := o.QueryTable(new(SoportePagoMensual))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -101,7 +97,7 @@ func GetAllPagoMensualEstadoPagoMensual(query map[string]string, fields []string
 		}
 	}
 
-	var l []PagoMensualEstadoPagoMensual
+	var l []SoportePagoMensual
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -124,11 +120,11 @@ func GetAllPagoMensualEstadoPagoMensual(query map[string]string, fields []string
 	return nil, err
 }
 
-// UpdatePagoMensualEstadoPagoMensual updates PagoMensualEstadoPagoMensual by Id and returns error if
+// UpdateSoportePagoMensual updates SoportePagoMensual by Id and returns error if
 // the record to be updated doesn't exist
-func UpdatePagoMensualEstadoPagoMensualById(m *PagoMensualEstadoPagoMensual) (err error) {
+func UpdateSoportePagoMensualById(m *SoportePagoMensual) (err error) {
 	o := orm.NewOrm()
-	v := PagoMensualEstadoPagoMensual{Id: m.Id}
+	v := SoportePagoMensual{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -139,15 +135,15 @@ func UpdatePagoMensualEstadoPagoMensualById(m *PagoMensualEstadoPagoMensual) (er
 	return
 }
 
-// DeletePagoMensualEstadoPagoMensual deletes PagoMensualEstadoPagoMensual by Id and returns error if
+// DeleteSoportePagoMensual deletes SoportePagoMensual by Id and returns error if
 // the record to be deleted doesn't exist
-func DeletePagoMensualEstadoPagoMensual(id int) (err error) {
+func DeleteSoportePagoMensual(id int) (err error) {
 	o := orm.NewOrm()
-	v := PagoMensualEstadoPagoMensual{Id: id}
+	v := SoportePagoMensual{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&PagoMensualEstadoPagoMensual{Id: id}); err == nil {
+		if num, err = o.Delete(&SoportePagoMensual{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
