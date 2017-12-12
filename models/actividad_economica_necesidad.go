@@ -12,7 +12,7 @@ import (
 type ActividadEconomicaNecesidad struct {
 	Id                 int        `orm:"column(id);pk;auto"`
 	Necesidad          *Necesidad `orm:"column(necesidad);rel(fk)"`
-	ActividadEconomica string     `orm:"column(actividad_economica)"`
+	ActividadEconomica int        `orm:"column(actividad_economica)"`
 }
 
 func (t *ActividadEconomicaNecesidad) TableName() string {
