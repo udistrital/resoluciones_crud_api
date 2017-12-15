@@ -5,78 +5,53 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type VinculacionDocente struct {
-	Id                   int                           `orm:"column(id);pk;auto"`
-	NumeroContrato       string                        `orm:"column(numero_contrato);null"`
-	Vigencia             int                           `orm:"column(vigencia);null"`
-	IdPersona            int                           `orm:"column(id_persona)"`
-	NumeroHorasSemanales int                           `orm:"column(numero_horas_semanales)"`
-	NumeroSemanas        int                           `orm:"column(numero_semanas)"`
-	IdPuntoSalarial      int                           `orm:"column(id_punto_salarial);null"`
-	IdSalarioMinimo      int                           `orm:"column(id_salario_minimo);null"`
-	IdResolucion         *ResolucionVinculacionDocente `orm:"column(id_resolucion);rel(fk)"`
-	IdDedicacion         *Dedicacion                   `orm:"column(id_dedicacion);rel(fk)"`
-	IdProyectoCurricular int16                         `orm:"column(id_proyecto_curricular)"`
-	Estado               bool                          `orm:"column(estado)"`
-	FechaRegistro        time.Time                     `orm:"column(fecha_registro);type(date)"`
+type OpcionAtributoRecurso struct {
+	Id                int              `orm:"column(id);pk"`
+	Nombre            string           `orm:"column(nombre)"`
+	Descripcion       string           `orm:"column(descripcion);null"`
+	Activo            bool             `orm:"column(activo)"`
+	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
+	NumerOrden        float64          `orm:"column(numer_orden);null"`
+	RecursoAtributo   *RecursoAtributo `orm:"column(recurso_atributo);rel(fk)"`
 }
 
-func (t *VinculacionDocente) TableName() string {
-	return "vinculacion_docente"
+func (t *OpcionAtributoRecurso) TableName() string {
+	return "opcion_atributo_recurso"
 }
 
 func init() {
-	orm.RegisterModel(new(VinculacionDocente))
+	orm.RegisterModel(new(OpcionAtributoRecurso))
 }
 
-func AddConjuntoVinculaciones(m []VinculacionDocente) (err error) {
-	o := orm.NewOrm()
-	o.Begin()
-	for _, vinculacion := range m {
-		vinculacion.Estado = true
-		vinculacion.FechaRegistro = time.Now()
-		_, err = o.Insert(&vinculacion)
-		if err != nil {
-			o.Rollback()
-			return
-		}
-	}
-	o.Commit()
-	return
-}
-
-// AddVinculacionDocente insert a new VinculacionDocente into database and returns
+// AddOpcionAtributoRecurso insert a new OpcionAtributoRecurso into database and returns
 // last inserted Id on success.
-func AddVinculacionDocente(m *VinculacionDocente) (id int64, err error) {
+func AddOpcionAtributoRecurso(m *OpcionAtributoRecurso) (id int64, err error) {
 	o := orm.NewOrm()
-	m.Estado = true
-	m.FechaRegistro = time.Now()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetVinculacionDocenteById retrieves VinculacionDocente by Id. Returns error if
+// GetOpcionAtributoRecursoById retrieves OpcionAtributoRecurso by Id. Returns error if
 // Id doesn't exist
-func GetVinculacionDocenteById(id int) (v *VinculacionDocente, err error) {
+func GetOpcionAtributoRecursoById(id int) (v *OpcionAtributoRecurso, err error) {
 	o := orm.NewOrm()
-	v = &VinculacionDocente{Id: id}
+	v = &OpcionAtributoRecurso{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllVinculacionDocente retrieves all VinculacionDocente matches certain condition. Returns empty list if
+// GetAllOpcionAtributoRecurso retrieves all OpcionAtributoRecurso matches certain condition. Returns empty list if
 // no records exist
-func GetAllVinculacionDocente(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllOpcionAtributoRecurso(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(VinculacionDocente)).RelatedSel()
+	qs := o.QueryTable(new(OpcionAtributoRecurso))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -126,7 +101,7 @@ func GetAllVinculacionDocente(query map[string]string, fields []string, sortby [
 		}
 	}
 
-	var l []VinculacionDocente
+	var l []OpcionAtributoRecurso
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -149,15 +124,14 @@ func GetAllVinculacionDocente(query map[string]string, fields []string, sortby [
 	return nil, err
 }
 
-// UpdateVinculacionDocente updates VinculacionDocente by Id and returns error if
+// UpdateOpcionAtributoRecurso updates OpcionAtributoRecurso by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateVinculacionDocenteById(m *VinculacionDocente) (err error) {
+func UpdateOpcionAtributoRecursoById(m *OpcionAtributoRecurso) (err error) {
 	o := orm.NewOrm()
-	v := VinculacionDocente{Id: m.Id}
+	v := OpcionAtributoRecurso{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		m.FechaRegistro = v.FechaRegistro
 		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
@@ -165,15 +139,15 @@ func UpdateVinculacionDocenteById(m *VinculacionDocente) (err error) {
 	return
 }
 
-// DeleteVinculacionDocente deletes VinculacionDocente by Id and returns error if
+// DeleteOpcionAtributoRecurso deletes OpcionAtributoRecurso by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteVinculacionDocente(id int) (err error) {
+func DeleteOpcionAtributoRecurso(id int) (err error) {
 	o := orm.NewOrm()
-	v := VinculacionDocente{Id: id}
+	v := OpcionAtributoRecurso{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&VinculacionDocente{Id: id}); err == nil {
+		if num, err = o.Delete(&OpcionAtributoRecurso{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

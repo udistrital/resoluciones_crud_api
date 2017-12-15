@@ -699,6 +699,48 @@ func init() {
 				&controllers.SoportePagoMensualController{},
 			),
 		),
+
+		beego.NSNamespace("/tipo_recurso",
+			beego.NSInclude(
+				&controllers.TipoRecursoController{},
+			),
+		),
+
+		beego.NSNamespace("/recurso",
+			beego.NSInclude(
+				&controllers.RecursoController{},
+			),
+		),
+
+		beego.NSNamespace("/opcion_atributo_recurso",
+			beego.NSInclude(
+				&controllers.OpcionAtributoRecursoController{},
+			),
+		),
+
+		beego.NSNamespace("/recurso_apropiacion",
+			beego.NSInclude(
+				&controllers.RecursoApropiacionController{},
+			),
+		),
+
+		beego.NSNamespace("/recurso_atributo",
+			beego.NSInclude(
+				&controllers.RecursoAtributoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_dato",
+			beego.NSInclude(
+				&controllers.TipoDatoController{},
+			),
+		),
+
+		beego.NSNamespace("/atributo_recurso",
+			beego.NSInclude(
+				&controllers.AtributoRecursoController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
