@@ -15172,8 +15172,14 @@ definitions:
         $ref: '#/definitions/models.TipoResolucion'
       NumeroResolucion:
         type: string
+      NumeroSemanas:
+        type: integer
+        format: int64
       Objeto:
         type: string
+      Periodo:
+        type: integer
+        format: int64
       PreambuloResolucion:
         type: string
       Vigencia:
@@ -15864,6 +15870,11 @@ definitions:
     title: VinculacionDocente
     type: object
     properties:
+      Categoria:
+        type: string
+      Disponibilidad:
+        type: integer
+        format: int64
       Estado:
         type: boolean
       FechaRegistro:
@@ -15896,6 +15907,9 @@ definitions:
       NumeroSemanas:
         type: integer
         format: int64
+      ValorContrato:
+        type: number
+        format: double
       Vigencia:
         type: integer
         format: int64

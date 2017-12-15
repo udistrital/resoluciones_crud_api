@@ -13,7 +13,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "basePath": "/v1",
+    "basePath": "/administrativa_api/v1",
     "paths": {
         "/acta_inicio/": {
             "get": {
@@ -22667,8 +22667,16 @@
                 "NumeroResolucion": {
                     "type": "string"
                 },
+                "NumeroSemanas": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "Objeto": {
                     "type": "string"
+                },
+                "Periodo": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "PreambuloResolucion": {
                     "type": "string"
@@ -23664,6 +23672,13 @@
             "title": "VinculacionDocente",
             "type": "object",
             "properties": {
+                "Categoria": {
+                    "type": "string"
+                },
+                "Disponibilidad": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "Estado": {
                     "type": "boolean"
                 },
@@ -23707,6 +23722,10 @@
                 "NumeroSemanas": {
                     "type": "integer",
                     "format": "int64"
+                },
+                "ValorContrato": {
+                    "type": "number",
+                    "format": "double"
                 },
                 "Vigencia": {
                     "type": "integer",

@@ -22,6 +22,8 @@ type Resolucion struct {
 	Estado                  bool            `orm:"column(estado)"`
 	FechaRegistro           time.Time       `orm:"column(fecha_registro);type(date)"`
 	Objeto                  string          `orm:"column(objeto);null"`
+	NumeroSemanas           int             `orm:"column(numero_semanas)"`
+	Periodo                 int             `orm:"column(periodo)"`
 }
 
 func (t *Resolucion) TableName() string {
@@ -32,34 +34,34 @@ func init() {
 	orm.RegisterModel(new(Resolucion))
 }
 
-func CancelarResolucion(m *Resolucion) (err error){
+func CancelarResolucion(m *Resolucion) (err error) {
 	o := orm.NewOrm()
 	o.Begin()
 	v := ResolucionVinculacionDocente{Id: m.Id}
-	if err = o.Read(&v); err == nil { 
+	if err = o.Read(&v); err == nil {
 		var vinculacion_docente []*VinculacionDocente
-		_, err=o.QueryTable("vinculacion_docente").Filter("id_resolucion",m.Id).Filter("estado",true).All(&vinculacion_docente)
-		for _, vd := range vinculacion_docente{
+		_, err = o.QueryTable("vinculacion_docente").Filter("id_resolucion", m.Id).Filter("estado", true).All(&vinculacion_docente)
+		for _, vd := range vinculacion_docente {
 			var contratos_generales []*ContratoGeneral
-			if(vd.NumeroContrato!="" && vd.Vigencia!=0){
-				_, err=o.QueryTable("contrato_general").Filter("numero_contrato",vd.NumeroContrato).Filter("vigencia",vd.Vigencia).All(&contratos_generales)
-				if(err == nil){
-					for _, c := range contratos_generales{
+			if vd.NumeroContrato != "" && vd.Vigencia != 0 {
+				_, err = o.QueryTable("contrato_general").Filter("numero_contrato", vd.NumeroContrato).Filter("vigencia", vd.Vigencia).All(&contratos_generales)
+				if err == nil {
+					for _, c := range contratos_generales {
 						aux1 := c.Id
-				    	aux2 := c.VigenciaContrato
-				    	e:=ContratoEstado{}
-				    	e.NumeroContrato = aux1
-				    	e.Vigencia = aux2
-				    	e.FechaRegistro=time.Now()
-				    	e.Estado=&EstadoContrato{Id:7}
-				    	if _, err = o.Insert(&e); err != nil{
-				    		o.Rollback()
-				    		return
-				    	}
+						aux2 := c.VigenciaContrato
+						e := ContratoEstado{}
+						e.NumeroContrato = aux1
+						e.Vigencia = aux2
+						e.FechaRegistro = time.Now()
+						e.Estado = &EstadoContrato{Id: 7}
+						if _, err = o.Insert(&e); err != nil {
+							o.Rollback()
+							return
+						}
 					}
-				}else{
+				} else {
 					o.Rollback()
-				    return
+					return
 				}
 			}
 		}
@@ -70,17 +72,17 @@ func CancelarResolucion(m *Resolucion) (err error){
 			e.Estado = &EstadoResolucion{Id: 3}
 			e.FechaRegistro = time.Now()
 			_, err = o.Insert(&e)
-			if(err==nil){
+			if err == nil {
 				fmt.Println("Number of records updated in database:", num)
-			}else{
+			} else {
 				o.Rollback()
 				return
 			}
-		}else{
+		} else {
 			o.Rollback()
 			return
 		}
-	}else{
+	} else {
 		o.Rollback()
 		return
 	}
@@ -91,22 +93,22 @@ func CancelarResolucion(m *Resolucion) (err error){
 func GenerarResolucion(m *Resolucion) (id int64, err error) {
 	o := orm.NewOrm()
 	o.Begin()
-	m.Vigencia, _, _=time.Now().Date()
-	m.FechaRegistro=time.Now()
-	m.Estado=true
-	m.IdTipoResolucion=&TipoResolucion{Id: 1}
+	m.Vigencia, _, _ = time.Now().Date()
+	m.FechaRegistro = time.Now()
+	m.Estado = true
+	m.IdTipoResolucion = &TipoResolucion{Id: 1}
 	id, err = o.Insert(m)
-	if(err==nil){
+	if err == nil {
 		var e ResolucionEstado
 		e.Resolucion = m
 		e.Estado = &EstadoResolucion{Id: 1}
 		e.FechaRegistro = time.Now()
 		_, err = o.Insert(&e)
-		if(err!=nil){
+		if err != nil {
 			o.Rollback()
 			return
 		}
-	}else{
+	} else {
 		o.Rollback()
 		return
 	}
@@ -114,7 +116,7 @@ func GenerarResolucion(m *Resolucion) (id int64, err error) {
 	return
 }
 
-func RestaurarResolucion(m *Resolucion) (err error){
+func RestaurarResolucion(m *Resolucion) (err error) {
 	o := orm.NewOrm()
 	o.Begin()
 	var num int64
@@ -124,13 +126,13 @@ func RestaurarResolucion(m *Resolucion) (err error){
 		e.Estado = &EstadoResolucion{Id: 1}
 		e.FechaRegistro = time.Now()
 		_, err = o.Insert(&e)
-		if(err==nil){
+		if err == nil {
 			fmt.Println("Number of records updated in database:", num)
-		}else{
+		} else {
 			o.Rollback()
 			return
 		}
-	}else{
+	} else {
 		o.Rollback()
 		return
 	}
