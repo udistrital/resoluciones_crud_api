@@ -15886,8 +15886,7 @@ definitions:
       IdDedicacion:
         $ref: '#/definitions/models.Dedicacion'
       IdPersona:
-        type: integer
-        format: int64
+        type: string
       IdProyectoCurricular:
         type: integer
         format: int32
