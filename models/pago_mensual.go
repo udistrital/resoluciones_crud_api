@@ -20,6 +20,7 @@ type PagoMensual struct {
 	Responsable       string             `orm:"column(responsable)"`
 	FechaModificacion time.Time          `orm:"column(fecha_modificacion)"`
 	CargoResponsable  string             `orm:"column(cargo_responsable)"`
+	Ano               float64            `orm:"column(ano)"`
 }
 
 func (t *PagoMensual) TableName() string {
