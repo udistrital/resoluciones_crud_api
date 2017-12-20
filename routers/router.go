@@ -741,6 +741,18 @@ func init() {
 				&controllers.AtributoRecursoController{},
 			),
 		),
+
+		beego.NSNamespace("/item_informe",
+			beego.NSInclude(
+				&controllers.ItemInformeController{},
+			),
+		),
+
+		beego.NSNamespace("/item_informe_tipo_contrato",
+			beego.NSInclude(
+				&controllers.ItemInformeTipoContratoController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
