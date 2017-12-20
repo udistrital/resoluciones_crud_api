@@ -10,9 +10,11 @@ import (
 )
 
 type SoportePagoMensual struct {
-	Id          int          `orm:"column(id);pk"`
-	PagoMensual *PagoMensual `orm:"column(pago_mensual);rel(fk)"`
-	Documento   int          `orm:"column(documento)"`
+	Id                      int                      `orm:"column(id);pk:auto"`
+	PagoMensual             *PagoMensual             `orm:"column(pago_mensual);rel(fk)"`
+	Documento               int                      `orm:"column(documento)"`
+	ItemInformeTipoContrato *ItemInformeTipoContrato `orm:"column(item_informe_tipo_contrato)"`
+	Aprobado                bool                     `orm:"column(aprobado)"`
 }
 
 func (t *SoportePagoMensual) TableName() string {

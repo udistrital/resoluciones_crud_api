@@ -11,15 +11,15 @@ import (
 )
 
 type PagoMensual struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	NumeroContrato    string    `orm:"column(numero_contrato)"`
-	VigenciaContrato  float64   `orm:"column(vigencia_contrato)"`
-	Mes               float64   `orm:"column(mes)"`
-	Persona           int       `orm:"column(persona)"`
-	Estado            int       `orm:"column(estado)"`
-	Responsable       string    `orm:"column(responsable)"`
-	FechaModificacion time.Time `orm:"column(fecha_modificacion)"`
-	CargoResponsable  string    `orm:"column(cargo_responsable)"`
+	Id                int                `orm:"column(id);pk;auto"`
+	NumeroContrato    string             `orm:"column(numero_contrato)"`
+	VigenciaContrato  float64            `orm:"column(vigencia_contrato)"`
+	Mes               float64            `orm:"column(mes)"`
+	Persona           string             `orm:"column(persona)"`
+	EstadoPagoMensual *EstadoPagoMensual `orm:"column(estado_pago_mensual);rel(fk)"`
+	Responsable       string             `orm:"column(responsable)"`
+	FechaModificacion time.Time          `orm:"column(fecha_modificacion)"`
+	CargoResponsable  string             `orm:"column(cargo_responsable)"`
 }
 
 func (t *PagoMensual) TableName() string {
