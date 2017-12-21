@@ -15001,11 +15001,13 @@ definitions:
     title: PagoMensual
     type: object
     properties:
+      Ano:
+        type: number
+        format: double
       CargoResponsable:
         type: string
-      Estado:
-        type: integer
-        format: int64
+      EstadoPagoMensual:
+        $ref: '#/definitions/models.EstadoPagoMensual'
       FechaModificacion:
         type: string
         format: string
@@ -15018,8 +15020,7 @@ definitions:
       NumeroContrato:
         type: string
       Persona:
-        type: integer
-        format: int64
+        type: string
       Responsable:
         type: string
       VigenciaContrato:
@@ -15635,12 +15636,16 @@ definitions:
     title: SoportePagoMensual
     type: object
     properties:
+      Aprobado:
+        type: boolean
       Documento:
         type: integer
         format: int64
       Id:
         type: integer
         format: int64
+      ItemInformeTipoContrato:
+        $ref: '#/definitions/models.ItemInformeTipoContrato'
       PagoMensual:
         $ref: '#/definitions/models.PagoMensual'
   models.Subgrupo:
