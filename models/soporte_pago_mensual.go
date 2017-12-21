@@ -10,9 +10,9 @@ import (
 )
 
 type SoportePagoMensual struct {
-	Id                      int                      `orm:"column(id);pk:auto"`
+	Id                      int                      `orm:"column(id);pk;auto"`
 	PagoMensual             *PagoMensual             `orm:"column(pago_mensual);rel(fk)"`
-	Documento               int                      `orm:"column(documento)"`
+	Documento               int                      `orm:"column(dcumento)"`
 	ItemInformeTipoContrato *ItemInformeTipoContrato `orm:"column(item_informe_tipo_contrato)"`
 	Aprobado                bool                     `orm:"column(aprobado)"`
 }
