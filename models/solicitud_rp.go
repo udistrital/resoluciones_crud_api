@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	"github.com/udistrital/administrativa_mid_api/utilidades"
+	"github.com/udistrital/administrativa_crud_api/utilidades"
 	"reflect"
 	"strings"
 	"time"
