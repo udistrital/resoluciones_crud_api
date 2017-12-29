@@ -3623,6 +3623,14 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:SolicitudRpController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:SolicitudRpController"],
+		beego.ControllerComments{
+			Method: "AddSolicitudRpTr",
+			Router: `/AddSolicitudRpTr`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:SoportePagoMensualController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:SoportePagoMensualController"],
 		beego.ControllerComments{
 			Method: "Post",

@@ -3,11 +3,11 @@ package models
 import (
 	"errors"
 	"fmt"
+	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/administrativa_mid_api/utilidades"
 	"reflect"
 	"strings"
 	"time"
-
-	"github.com/astaxie/beego/orm"
 )
 
 type SolicitudRp struct {
@@ -21,6 +21,7 @@ type SolicitudRp struct {
 	Compromiso           int       `orm:"column(compromiso);null"`
 	JustificacionRechazo string    `orm:"column(justificacion_rechazo);null"`
 	Masivo               bool      `orm:"column(masivo);null"`
+	Proveedor            int       `orm:"column(id_proveedor);null"`
 }
 
 func (t *SolicitudRp) TableName() string {
@@ -36,6 +37,57 @@ func init() {
 func AddSolicitudRp(m *SolicitudRp) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
+	return
+}
+
+// AddSolicitudRp insert a new SolicitudRp into database and returns
+// last inserted Id on success.
+func AddSolicitudRpTr(m []map[string]interface{}) (res []map[string]interface{}) {
+	o := orm.NewOrm()
+	solicitud := SolicitudRp{}
+	var rubros []DisponibilidadApropiacionSolicitudRp
+	o.Begin()
+	for _, data := range m {
+		if e := utilidades.FillStruct(data["solicitudRp"], &solicitud); e == nil {
+			fmt.Println(solicitud)
+			if id, err := o.Insert(&solicitud); err == nil {
+				if e := utilidades.FillStruct(data["rubros"], &rubros); e == nil {
+					for _, row := range rubros {
+						solicitud.Id = int(id)
+						row.SolicitudRp = &solicitud
+						if _, err = o.Insert(&row); err != nil {
+							o.Rollback()
+							alrt := map[string]interface{}{"Code": "E_SRP001", "Type": "error", "Body": solicitud}
+							res = append(res, alrt)
+							return
+						}
+					}
+				} else {
+					fmt.Println("error conversion rubros")
+					o.Rollback()
+					alrt := map[string]interface{}{"Code": "E_SRP002", "Type": "error", "Body": e.Error()}
+					res = append(res, alrt)
+					return
+				}
+			} else {
+				fmt.Println("error insersion solicitud")
+				o.Rollback()
+				alrt := map[string]interface{}{"Code": "E_SRP002", "Type": "error", "Body": err.Error()}
+				res = append(res, alrt)
+				return
+			}
+		} else {
+			fmt.Println("error conversion")
+			o.Rollback()
+			alrt := map[string]interface{}{"Code": "E_SRP002", "Type": "error", "Body": e.Error()}
+			res = append(res, alrt)
+			return
+		}
+		alrt := map[string]interface{}{"Code": "S_SRP001", "Type": "success", "Body": solicitud}
+		res = append(res, alrt)
+		solicitud = SolicitudRp{}
+	}
+	o.Commit()
 	return
 }
 
@@ -58,17 +110,17 @@ func GetAllSolicitudRp(query map[string]string, fields []string, sortby []string
 	qs := o.QueryTable(new(SolicitudRp))
 	// query k=v
 	for k, v := range query {
-	        // rewrite dot-notation to Object__Attribute
-	        k = strings.Replace(k, ".", "__", -1)
-	        if strings.Contains(k, "isnull") {
-	            qs = qs.Filter(k, (v == "true" || v == "1"))
-	        } else if strings.Contains(k, "in") {
-	            arr := strings.Split(v, "|")
-	            qs = qs.Filter(k, arr)
-	        } else {
-	            qs = qs.Filter(k, v)
-	        }
-	    }
+		// rewrite dot-notation to Object__Attribute
+		k = strings.Replace(k, ".", "__", -1)
+		if strings.Contains(k, "isnull") {
+			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
+		} else {
+			qs = qs.Filter(k, v)
+		}
+	}
 	// order by:
 	var sortFields []string
 	if len(sortby) != 0 {

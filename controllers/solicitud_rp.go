@@ -46,6 +46,26 @@ func (c *SolicitudRpController) Post() {
 	c.ServeJSON()
 }
 
+// AddSolicitudRpTr ...
+// @Title AddSolicitudRpTr
+// @Description create SolicitudRp
+// @Param	body		body 	models.SolicitudRp	true		"body for SolicitudRp content"
+// @Success 201 {int} models.SolicitudRp
+// @Failure 403 body is empty
+// @router /AddSolicitudRpTr [post]
+func (c *SolicitudRpController) AddSolicitudRpTr() {
+	var v []map[string]interface{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		alert := models.AddSolicitudRpTr(v)
+		c.Ctx.Output.SetStatus(201)
+		c.Data["json"] = alert
+
+	} else {
+		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+}
+
 // GetOne ...
 // @Title Get One
 // @Description get SolicitudRp by id
