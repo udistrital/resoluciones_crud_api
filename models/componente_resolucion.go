@@ -31,7 +31,6 @@ func init() {
 func AddComponenteResolucion(m *ComponenteResolucion) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
-	fmt.Println("hpta")
 	fmt.Println(err)
 	return
 }

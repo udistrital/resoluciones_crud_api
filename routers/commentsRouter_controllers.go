@@ -3423,6 +3423,14 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionVinculacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionVinculacionController"],
+		beego.ControllerComments{
+			Method: "GetAllExpedidasVigenciaPeriodo",
+			Router: `/expedidas_vigencia_periodo`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionVinculacionDocenteController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:ResolucionVinculacionDocenteController"],
 		beego.ControllerComments{
 			Method: "Post",

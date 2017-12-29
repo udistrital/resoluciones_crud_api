@@ -18,6 +18,7 @@ type ResolucionVinculacion struct {
 	FechaExpedicion time.Time `orm:"column(fecha_expedicion);type(date)"`
 	NumeroSemanas   int       `orm:"column(numero_semanas)"`
 	Periodo         int       `orm:"column(periodo)"`
+	TipoResolucion  string    `orm:"column(tipo_resolucion)"`
 }
 
 func init() {
@@ -28,7 +29,7 @@ func GetAllResolucionVinculacion() (arregloIDs []ResolucionVinculacion) {
 	o := orm.NewOrm()
 	var temp []ResolucionVinculacion
 	//_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, d.nombre facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.fecha_expedicion fecha_expedicion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, oikos.dependencia d, administrativa.resolucion_estado re, administrativa.estado_resolucion e WHERE rv.id_facultad=d.id AND r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) AND r.id_tipo_resolucion=1 ORDER BY id desc;").QueryRows(&temp)
-	_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, r.periodo periodo, rv.id_facultad facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.numero_semanas numero_semanas,r.fecha_expedicion fecha_expedicion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, administrativa.resolucion_estado re, administrativa.estado_resolucion e WHERE r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) AND r.id_tipo_resolucion=1 ORDER BY id desc;").QueryRows(&temp)
+	_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, r.periodo periodo, rv.id_facultad facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.numero_semanas numero_semanas,r.fecha_expedicion fecha_expedicion, tipo.nombre_tipo_resolucion tipo_resolucion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, administrativa.resolucion_estado re, administrativa.estado_resolucion e, administrativa.tipo_resolucion tipo WHERE r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND r.id_tipo_resolucion=tipo.id_tipo_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) ORDER BY id desc;").QueryRows(&temp)
 
 	if err == nil {
 		fmt.Println("Consulta exitosa")
@@ -42,6 +43,19 @@ func GetAllResolucionAprobada() (arregloIDs []ResolucionVinculacion) {
 	var temp []ResolucionVinculacion
 	//_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, d.nombre facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.fecha_expedicion fecha_expedicion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, oikos.dependencia d, administrativa.resolucion_estado re, administrativa.estado_resolucion e WHERE rv.id_facultad=d.id AND r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) AND r.id_tipo_resolucion=1 ORDER BY id desc;").QueryRows(&temp)
 	_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, r.periodo periodo, rv.id_facultad facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.numero_semanas numero_semanas,r.fecha_expedicion fecha_expedicion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, administrativa.resolucion_estado re, administrativa.estado_resolucion e WHERE r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) AND r.id_tipo_resolucion=1 AND e.nombre_estado IN('Aprobada','Expedida') ORDER BY id desc;").QueryRows(&temp)
+
+	if err == nil {
+		fmt.Println("Consulta exitosa")
+	}
+
+	return temp
+}
+
+func GetAllExpedidasVigenciaPeriodo(vigencia, periodo int) (arregloIDs []ResolucionVinculacion) {
+	o := orm.NewOrm()
+	var temp []ResolucionVinculacion
+	//_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, d.nombre facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.fecha_expedicion fecha_expedicion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, oikos.dependencia d, administrativa.resolucion_estado re, administrativa.estado_resolucion e WHERE rv.id_facultad=d.id AND r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) AND r.id_tipo_resolucion=1 ORDER BY id desc;").QueryRows(&temp)
+	_, err := o.Raw("SELECT r.id_resolucion id, e.nombre_estado estado, r.numero_resolucion numero, r.vigencia vigencia, r.periodo periodo, rv.id_facultad facultad, rv.nivel_academico nivel_academico, rv.dedicacion dedicacion, r.numero_semanas numero_semanas,r.fecha_expedicion fecha_expedicion FROM administrativa.resolucion r, administrativa.resolucion_vinculacion_docente rv, administrativa.resolucion_estado re, administrativa.estado_resolucion e WHERE r.id_resolucion=rv.id_resolucion AND re.resolucion=r.id_resolucion AND re.estado=e.id AND re.fecha_registro=(SELECT MAX(re_aux.fecha_registro) FROM administrativa.resolucion_estado re_aux WHERE re_aux.resolucion=r.id_resolucion) AND r.id_tipo_resolucion=1 AND r.vigencia = ? AND r.periodo = ? AND e.nombre_estado IN('Expedida') ORDER BY id desc;",vigencia,periodo).QueryRows(&temp)
 
 	if err == nil {
 		fmt.Println("Consulta exitosa")

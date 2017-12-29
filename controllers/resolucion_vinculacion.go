@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/udistrital/administrativa_crud_api/models"
+	"fmt"
 )
 
 type ResolucionVinculacionController struct {
@@ -12,7 +13,7 @@ type ResolucionVinculacionController struct {
 func (c *ResolucionVinculacionController) URLMapping() {
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("GetAllAprobada", c.GetAllAprobada)
-
+	c.Mapping("GetAllExpedidasVigenciaPeriodo", c.GetAllExpedidasVigenciaPeriodo)
 }
 
 // GetAll ...
@@ -50,5 +51,31 @@ func (c *ResolucionVinculacionController) GetAllAprobada() {
 	listaResoluciones := models.GetAllResolucionAprobada()
 	c.Ctx.Output.SetStatus(201)
 	c.Data["json"] = listaResoluciones
+	c.ServeJSON()
+}
+
+// GetAllExpedidasVigenciaPeriodoa ...
+// @Title GetAllExpedidasVigenciaPeriodo
+// @Description Agrupa los contratos de una preliquidacion segun mes, año y nomina para preliquidaicones en estado CERRADA
+// @Param vigencia query string false "nomina a listar"
+// @Param periodo query string false "mes de la liquidacion a listar"
+// @Success 201 {object} models.Preliquidacion_x_contratos
+// @Failure 403 body is empty
+// @router /expedidas_vigencia_periodo [get]
+func (c *ResolucionVinculacionController) GetAllExpedidasVigenciaPeriodo() {
+
+	vigencia, err1 := c.GetInt("vigencia")
+	periodo, err2 := c.GetInt("periodo")
+	if err1 == nil && err2 == nil{
+
+	 listaResoluciones := models.GetAllExpedidasVigenciaPeriodo(vigencia, periodo);
+
+	c.Ctx.Output.SetStatus(201)
+	c.Data["json"] = listaResoluciones
+
+	} else {
+		fmt.Println(err1)
+		c.Data["json"] = "error"
+	}
 	c.ServeJSON()
 }
