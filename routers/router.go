@@ -753,6 +753,12 @@ func init() {
 				&controllers.ItemInformeTipoContratoController{},
 			),
 		),
+
+		beego.NSNamespace("/modificacion_resolucion",
+			beego.NSInclude(
+				&controllers.ModificacionResolucionController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
