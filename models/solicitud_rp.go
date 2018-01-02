@@ -18,10 +18,11 @@ type SolicitudRp struct {
 	NumeroContrato       string    `orm:"column(numero_contrato)"`
 	VigenciaContrato     int       `orm:"column(vigencia_contrato);null"`
 	Id                   int       `orm:"column(id);pk;auto"`
-	Compromiso           int       `orm:"column(compromiso);null"`
+	TipoCompromiso       int       `orm:"column(tipo_compromiso);null"`
 	JustificacionRechazo string    `orm:"column(justificacion_rechazo);null"`
 	Masivo               bool      `orm:"column(masivo);null"`
 	Proveedor            int       `orm:"column(id_proveedor);null"`
+	NumeroCompromiso     int       `orm:"column(numero_compromiso);null"`
 }
 
 func (t *SolicitudRp) TableName() string {
