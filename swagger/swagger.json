@@ -13,7 +13,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "basePath": "/v1",
+    "basePath": "administrativa_api/v1",
     "paths": {
         "/acta_inicio/": {
             "get": {
@@ -9269,6 +9269,352 @@
                 }
             }
         },
+        "/modificacion_resolucion/": {
+            "get": {
+                "tags": [
+                    "modificacion_resolucion"
+                ],
+                "description": "get ModificacionResolucion",
+                "operationId": "ModificacionResolucionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionResolucion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "modificacion_resolucion"
+                ],
+                "description": "create ModificacionResolucion",
+                "operationId": "ModificacionResolucionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ModificacionResolucion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionResolucion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.ModificacionResolucion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/modificacion_resolucion/{id}": {
+            "get": {
+                "tags": [
+                    "modificacion_resolucion"
+                ],
+                "description": "get ModificacionResolucion by id",
+                "operationId": "ModificacionResolucionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionResolucion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "modificacion_resolucion"
+                ],
+                "description": "update the ModificacionResolucion",
+                "operationId": "ModificacionResolucionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ModificacionResolucion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionResolucion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionResolucion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "modificacion_resolucion"
+                ],
+                "description": "delete the ModificacionResolucion",
+                "operationId": "ModificacionResolucionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/modificacion_vinculacion/": {
+            "get": {
+                "tags": [
+                    "modificacion_vinculacion"
+                ],
+                "description": "get ModificacionVinculacion",
+                "operationId": "ModificacionVinculacionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionVinculacion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "modificacion_vinculacion"
+                ],
+                "description": "create ModificacionVinculacion",
+                "operationId": "ModificacionVinculacionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ModificacionVinculacion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionVinculacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.ModificacionVinculacion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/modificacion_vinculacion/{id}": {
+            "get": {
+                "tags": [
+                    "modificacion_vinculacion"
+                ],
+                "description": "get ModificacionVinculacion by id",
+                "operationId": "ModificacionVinculacionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionVinculacion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "modificacion_vinculacion"
+                ],
+                "description": "update the ModificacionVinculacion",
+                "operationId": "ModificacionVinculacionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ModificacionVinculacion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionVinculacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ModificacionVinculacion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "modificacion_vinculacion"
+                ],
+                "description": "delete the ModificacionVinculacion",
+                "operationId": "ModificacionVinculacionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
         "/movimiento/": {
             "get": {
                 "tags": [
@@ -14591,6 +14937,40 @@
                 }
             }
         },
+        "/resolucion_vinculacion/expedidas_vigencia_periodo": {
+            "get": {
+                "tags": [
+                    "resolucion_vinculacion"
+                ],
+                "description": "Agrupa los contratos de una preliquidacion segun mes, año y nomina para preliquidaicones en estado CERRADA",
+                "operationId": "ResolucionVinculacionController.GetAllExpedidasVigenciaPeriodo",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "vigencia",
+                        "description": "nomina a listar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "periodo",
+                        "description": "mes de la liquidacion a listar",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/.Preliquidacion_x_contratos"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
         "/resolucion_vinculacion_docente/": {
             "get": {
                 "tags": [
@@ -15346,6 +15726,34 @@
                 ],
                 "description": "create SolicitudRp",
                 "operationId": "SolicitudRpController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for SolicitudRp content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SolicitudRp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.SolicitudRp"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/solicitud_rp/AddSolicitudRpTr": {
+            "post": {
+                "tags": [
+                    "solicitud_rp"
+                ],
+                "description": "create SolicitudRp",
+                "operationId": "SolicitudRpController.AddSolicitudRpTr",
                 "parameters": [
                     {
                         "in": "body",
@@ -20582,6 +20990,9 @@
         }
     },
     "definitions": {
+        ".Preliquidacion_x_contratos": {
+            "type": "object"
+        },
         ".VigenciaContrato": {
             "type": "object"
         },
@@ -22157,6 +22568,47 @@
                 }
             }
         },
+        "models.ModificacionResolucion": {
+            "title": "ModificacionResolucion",
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ResolucionAnterior": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ResolucionNueva": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.ModificacionVinculacion": {
+            "title": "ModificacionVinculacion",
+            "type": "object",
+            "properties": {
+                "Horas": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ModificacionResolucion": {
+                    "$ref": "#/definitions/models.ModificacionResolucion"
+                },
+                "VinculacionDocenteCancelada": {
+                    "$ref": "#/definitions/models.VinculacionDocente"
+                },
+                "VinculacionDocenteRegistrada": {
+                    "$ref": "#/definitions/models.VinculacionDocente"
+                }
+            }
+        },
         "models.Movimiento": {
             "title": "Movimiento",
             "type": "object",
@@ -23309,10 +23761,6 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "Compromiso": {
-                    "type": "integer",
-                    "format": "int64"
-                },
                 "Expedida": {
                     "type": "boolean"
                 },
@@ -23330,8 +23778,20 @@
                 "Masivo": {
                     "type": "boolean"
                 },
+                "NumeroCompromiso": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "NumeroContrato": {
                     "type": "string"
+                },
+                "Proveedor": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "TipoCompromiso": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "Vigencia": {
                     "type": "integer",
@@ -24690,6 +25150,14 @@
         {
             "name": "item_informe_tipo_contrato",
             "description": "ItemInformeTipoContratoController operations for ItemInformeTipoContrato\n"
+        },
+        {
+            "name": "modificacion_resolucion",
+            "description": "ModificacionResolucionController operations for ModificacionResolucion\n"
+        },
+        {
+            "name": "modificacion_vinculacion",
+            "description": "ModificacionVinculacionController operations for ModificacionVinculacion\n"
         }
     ]
 }
