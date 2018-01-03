@@ -759,6 +759,12 @@ func init() {
 				&controllers.ModificacionResolucionController{},
 			),
 		),
+
+		beego.NSNamespace("/modificacion_vinculacion",
+			beego.NSInclude(
+				&controllers.ModificacionVinculacionController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
