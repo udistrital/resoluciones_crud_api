@@ -43,7 +43,7 @@ func CancelarResolucion(m *Resolucion) (err error) {
 		_, err = o.QueryTable("vinculacion_docente").Filter("id_resolucion", m.Id).Filter("estado", true).All(&vinculacion_docente)
 		for _, vd := range vinculacion_docente {
 			var contratos_generales []*ContratoGeneral
-			if *vd.NumeroContrato != "" && *vd.Vigencia != 0 {
+			if vd.NumeroContrato.String != "" && vd.Vigencia.Int64 != 0 {
 				_, err = o.QueryTable("contrato_general").Filter("numero_contrato", vd.NumeroContrato).Filter("vigencia", vd.Vigencia).All(&contratos_generales)
 				if err == nil {
 					for _, c := range contratos_generales {
