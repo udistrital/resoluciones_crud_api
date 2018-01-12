@@ -51,6 +51,7 @@ func AddSolicitudRpTr(m []map[string]interface{}) (res []map[string]interface{})
 	for _, data := range m {
 		if e := utilidades.FillStruct(data["solicitudRp"], &solicitud); e == nil {
 			fmt.Println(solicitud)
+			solicitud.Vigencia = time.Now().Year()
 			if id, err := o.Insert(&solicitud); err == nil {
 				if e := utilidades.FillStruct(data["rubros"], &rubros); e == nil {
 					for _, row := range rubros {
