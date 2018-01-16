@@ -28,15 +28,16 @@ func (c *VinculacionDocenteController) URLMapping() {
 // Post ...
 // @Title Post
 // @Description create VinculacionDocente
-// @Success 201 {int} models.VinculacionDocente
+// @Success 201 {int}
 // @Failure 403 body is empty
 // @router /InsertarVinculaciones [post]
 func (c *VinculacionDocenteController) InsertarVinculaciones() {
 	var v []models.VinculacionDocente
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.AddConjuntoVinculaciones(v); err == nil {
+		if id,err := models.AddConjuntoVinculaciones(v); err == nil {
+			
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = id
 		} else {
 			c.Data["json"] = err.Error()
 		}

@@ -39,13 +39,15 @@ func init() {
 	orm.RegisterModel(new(VinculacionDocente))
 }
 
-func AddConjuntoVinculaciones(m []VinculacionDocente) (err error) {
+func AddConjuntoVinculaciones(m []VinculacionDocente) (id int64, err error) {
 	o := orm.NewOrm()
+	fmt.Println("holaaaa")
 	o.Begin()
 	for _, vinculacion := range m {
 		vinculacion.Estado = true
 		vinculacion.FechaRegistro = time.Now()
-		_, err = o.Insert(&vinculacion)
+		id, err = o.Insert(&vinculacion)
+		fmt.Println("id de vinculacion insertada",id)
 		if err != nil {
 			o.Rollback()
 			return
