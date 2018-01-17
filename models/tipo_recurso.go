@@ -16,7 +16,6 @@ type TipoRecurso struct {
 	Activo            bool         `orm:"column(activo)"`
 	CodigoAbreviacion string       `orm:"column(codigo_abreviacion);null"`
 	NumerOrden        float64      `orm:"column(numer_orden);null"`
-	TipoRecurso       *TipoRecurso `orm:"column(tipo_recurso);rel(fk)"`
 }
 
 func (t *TipoRecurso) TableName() string {

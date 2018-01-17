@@ -13836,7 +13836,7 @@ paths:
       operationId: VinculacionDocenteController.Post
       responses:
         "201":
-          description: '{int} models.VinculacionDocente'
+          description: '{int}'
         "403":
           description: body is empty
   /zona_upc/:
@@ -15620,6 +15620,8 @@ definitions:
         format: int64
       Nombre:
         type: string
+      Recurso:
+        $ref: '#/definitions/models.Recurso'
       TipoRecurso:
         $ref: '#/definitions/models.TipoRecurso'
   models.RecursoApropiacion:
@@ -16300,8 +16302,6 @@ definitions:
       NumerOrden:
         type: number
         format: double
-      TipoRecurso:
-        $ref: '#/definitions/models.TipoRecurso'
   models.TipoResolucion:
     title: TipoResolucion
     type: object

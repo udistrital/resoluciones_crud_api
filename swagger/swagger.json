@@ -13,9 +13,9 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "basePath": "/v1",
+    "basePath": "/administrativa_api/v1",
     "paths": {
-        "/administrativa_api/acta_inicio/": {
+        "/acta_inicio/": {
             "get": {
                 "tags": [
                     "acta_inicio"
@@ -20718,7 +20718,7 @@
                 "operationId": "VinculacionDocenteController.Post",
                 "responses": {
                     "201": {
-                        "description": "{int} models.VinculacionDocente"
+                        "description": "{int}"
                     },
                     "403": {
                         "description": "body is empty"
@@ -23349,6 +23349,9 @@
                 "Nombre": {
                     "type": "string"
                 },
+                "Recurso": {
+                    "$ref": "#/definitions/models.Recurso"
+                },
                 "TipoRecurso": {
                     "$ref": "#/definitions/models.TipoRecurso"
                 }
@@ -24321,9 +24324,6 @@
                 "NumerOrden": {
                     "type": "number",
                     "format": "double"
-                },
-                "TipoRecurso": {
-                    "$ref": "#/definitions/models.TipoRecurso"
                 }
             }
         },
