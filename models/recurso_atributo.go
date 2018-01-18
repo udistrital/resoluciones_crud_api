@@ -10,7 +10,7 @@ import (
 )
 
 type RecursoAtributo struct {
-	Id              int              `orm:"column(id);pk"`
+	Id              int              `orm:"column(id);pk;auto"`
 	Recurso         *Recurso         `orm:"column(recurso);rel(fk)"`
 	AtributoRecurso *AtributoRecurso `orm:"column(atributo_recurso);rel(fk)"`
 }

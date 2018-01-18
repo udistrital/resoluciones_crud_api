@@ -10,7 +10,7 @@ import (
 )
 
 type AtributoRecurso struct {
-	Id            int    `orm:"column(id);pk"`
+	Id            int    `orm:"column(id);pk;auto"`
 	Requerido     bool   `orm:"column(requerido);null"`
 	TextoAtributo string `orm:"column(texto_atributo);null"`
 	TipoDato      int    `orm:"column(tipo_dato);null"`
