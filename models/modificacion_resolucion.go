@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+
 	"github.com/astaxie/beego/orm"
 )
 
 type ModificacionResolucion struct {
-	Id             int       			`orm:"column(id);pk;auto"`
-	ResolucionNueva       int      `orm:"column(resolucion_nueva)"`
-	ResolucionAnterior     int    `orm:"column(resolucion_anterior)"`
+	Id                 int `orm:"column(id);pk;auto"`
+	ResolucionNueva    int `orm:"column(resolucion_nueva)"`
+	ResolucionAnterior int `orm:"column(resolucion_anterior)"`
 }
 
 func (t *ModificacionResolucion) TableName() string {
