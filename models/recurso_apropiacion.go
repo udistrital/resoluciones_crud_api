@@ -10,7 +10,7 @@ import (
 )
 
 type RecursoApropiacion struct {
-	Id          int      `orm:"column(id);pk"`
+	Id          int      `orm:"column(id);pk;auto"`
 	Apropiacion int      `orm:"column(apropiacion);null"`
 	Recurso     *Recurso `orm:"column(recurso);rel(fk)"`
 }
