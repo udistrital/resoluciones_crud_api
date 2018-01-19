@@ -186,3 +186,14 @@ func DeleteVinculacionDocente(id int) (err error) {
 	}
 	return
 }
+
+func GetVinculacionesAgrupadas(id string) (v []VinculacionDocente, er error) {
+	o := orm.NewOrm()
+
+	var temp []VinculacionDocente
+	_, err := o.Raw("SELECT * FROM administrativa.vinculacion_docente t1 WHERE t1.numero_horas_semanales = (SELECT MAX(t2.numero_horas_semanales) FROM administrativa.vinculacion_docente t2 WHERE t1.id_persona = t2.id_persona) AND id_resolucion =" + id + ";").QueryRows(&temp)
+	if err == nil {
+		fmt.Println("Consulta exitosa")
+	}
+	return temp,err
+}

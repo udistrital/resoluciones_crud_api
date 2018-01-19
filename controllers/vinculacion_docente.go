@@ -35,7 +35,7 @@ func (c *VinculacionDocenteController) InsertarVinculaciones() {
 	var v []models.VinculacionDocente
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if id,err := models.AddConjuntoVinculaciones(v); err == nil {
-			
+
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = id
 		} else {
@@ -192,6 +192,24 @@ func (c *VinculacionDocenteController) Delete() {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+}
+
+// GetVinculacionesAgrupadas ...
+// @Title GetVinculacionesAgrupadas
+// @Description get vinculaciones agrupadas por docente
+// @Param	id_resolucion		path 	string	true
+// @Success 200 {object} models.VinculacionDocente
+// @Failure 403 :id is empty
+// @router /get_vinculaciones_agrupadas/:id_resolucion [get]
+func (c *VinculacionDocenteController) GetVinculacionesAgrupadas() {
+	idStr := c.Ctx.Input.Param(":id_resolucion")
+	v, err := models.GetVinculacionesAgrupadas(idStr)
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		c.Data["json"] = v
 	}
 	c.ServeJSON()
 }
