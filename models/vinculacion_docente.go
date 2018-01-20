@@ -191,7 +191,7 @@ func GetVinculacionesAgrupadas(id string) (v []VinculacionDocente, er error) {
 	o := orm.NewOrm()
 
 	var temp []VinculacionDocente
-	_, err := o.Raw("SELECT * FROM administrativa.vinculacion_docente t1 WHERE t1.numero_horas_semanales = (SELECT MAX(t2.numero_horas_semanales) FROM administrativa.vinculacion_docente t2 WHERE t1.id_persona = t2.id_persona) AND id_resolucion =" + id + ";").QueryRows(&temp)
+	_, err := o.Raw("SELECT vd.* FROM administrativa.vinculacion_docente vd JOIN (SELECT id_resolucion, id_persona, MAX(numero_horas_semanales) FROM administrativa.vinculacion_docente GROUP BY id_resolucion, id_persona)TAB1 ON vd.id_resolucion=TAB1.id_resolucion AND vd.id_persona=TAB1.id_persona AND vd.numero_horas_semanales=TAB1.max WHERE vd.id_resolucion=" + id + ";").QueryRows(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}
