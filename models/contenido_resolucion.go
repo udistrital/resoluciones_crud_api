@@ -28,6 +28,7 @@ type ResolucionCompleta struct {
 	Numero        string
 	Id            int
 	Articulos     []Articulo
+	Titulo        string
 }
 
 func GetOneResolucionCompleta(idResolucion string) (resolucion ResolucionCompleta) {
@@ -38,7 +39,7 @@ func GetOneResolucionCompleta(idResolucion string) (resolucion ResolucionComplet
 		fmt.Println("Consulta exitosa")
 	}
 
-	resolucionCompleta := ResolucionCompleta{Id: temp[0].Id, Consideracion: temp[0].ConsideracionResolucion, Preambulo: temp[0].PreambuloResolucion, Vigencia: temp[0].Vigencia, Numero: temp[0].NumeroResolucion}
+	resolucionCompleta := ResolucionCompleta{Id: temp[0].Id, Consideracion: temp[0].ConsideracionResolucion, Preambulo: temp[0].PreambuloResolucion, Vigencia: temp[0].Vigencia, Numero: temp[0].NumeroResolucion, Titulo: temp[0].Titulo}
 
 	var arts []ComponenteResolucion
 	_, err2 := o.Raw("SELECT * FROM administrativa.componente_resolucion WHERE resolucion_id=" + idResolucion + " AND tipo_componente like 'Articulo' ORDER BY numero asc;").QueryRows(&arts)
@@ -77,6 +78,7 @@ func UpdateResolucionCompletaById(m *ResolucionCompleta) (err error) {
 	v := Resolucion{Id: m.Id}
 	if err = o.Read(&v); err == nil {
 		v.NumeroResolucion = m.Numero
+		v.Titulo = m.Titulo
 		_, err = o.Update(&v)
 	} else {
 		return

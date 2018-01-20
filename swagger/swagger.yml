@@ -13351,6 +13351,23 @@ paths:
           description: '{int}'
         "403":
           description: body is empty
+  /vinculacion_docente/get_vinculaciones_agrupadas/{id_resolucion}:
+    get:
+      tags:
+      - vinculacion_docente
+      description: get vinculaciones agrupadas por docente
+      operationId: VinculacionDocenteController.GetVinculacionesAgrupadas
+      parameters:
+      - in: path
+        name: id_resolucion
+        description: "true"
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.VinculacionDocente'
+        "403":
+          description: :id is empty
   /zona_upc/:
     get:
       tags:
@@ -15298,6 +15315,8 @@ definitions:
         format: int64
       PreambuloResolucion:
         type: string
+      Titulo:
+        type: string
       Vigencia:
         type: integer
         format: int64
@@ -15317,6 +15336,8 @@ definitions:
       Numero:
         type: string
       Preambulo:
+        type: string
+      Titulo:
         type: string
       Vigencia:
         type: integer
