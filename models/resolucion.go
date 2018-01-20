@@ -24,6 +24,7 @@ type Resolucion struct {
 	Objeto                  string          `orm:"column(objeto);null"`
 	NumeroSemanas           int             `orm:"column(numero_semanas)"`
 	Periodo                 int             `orm:"column(periodo)"`
+	//Titulo                  string          `orm:"column(titulo);null"`
 }
 
 func (t *Resolucion) TableName() string {
