@@ -13351,6 +13351,29 @@ paths:
           description: '{int}'
         "403":
           description: body is empty
+  /vinculacion_docente/get_valores_totales_x_disponibilidad/{anio}/{periodo}/{id_disponibilidad}:
+    get:
+      tags:
+      - vinculacion_docente
+      description: se obtiene el valor total que ha sido apartado para cierta disponibilidad
+      operationId: VinculacionDocenteController.GetValoresTotalesPorDisponibilidad
+      parameters:
+      - in: path
+        name: anio
+        description: "true"
+        type: string
+      - in: path
+        name: periodo
+        description: "true"
+        type: string
+      - in: path
+        name: id_disponibilidad
+        description: "true"
+        type: string
+      responses:
+        "200":
+          description: '{int}'
+        "403": {}
   /vinculacion_docente/get_vinculaciones_agrupadas/{id_resolucion}:
     get:
       tags:
