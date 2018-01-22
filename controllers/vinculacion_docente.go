@@ -213,3 +213,26 @@ func (c *VinculacionDocenteController) GetVinculacionesAgrupadas() {
 	}
 	c.ServeJSON()
 }
+
+// GetValoresTotalesPorDisponibilidad ...
+// @Title GetValoresTotalesPorDisponibilidad
+// @Description se obtiene el valor total que ha sido apartado para cierta disponibilidad
+// @Param	anio	    path 	string	true
+// @Param	periodo		path 	string	true
+// @Param	id_disponibilidad	path 	string	true
+// @Success 200 {int}
+// @Failure 403
+// @router /get_valores_totales_x_disponibilidad/:anio/:periodo/:id_disponibilidad [get]
+func (c *VinculacionDocenteController) GetValoresTotalesPorDisponibilidad() {
+	anio := c.Ctx.Input.Param(":anio")
+	periodo := c.Ctx.Input.Param(":periodo")
+	id_disponibilidad := c.Ctx.Input.Param(":id_disponibilidad")
+	fmt.Println("asdf",anio, periodo, id_disponibilidad)
+	v, err := models.GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad)
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		c.Data["json"] = v
+	}
+	c.ServeJSON()
+}
