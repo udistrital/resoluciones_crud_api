@@ -22,12 +22,15 @@ func (c *ResolucionCompletaController) URLMapping() {
 // GetOne ...
 // @Title Get Template
 // @Description get ResolucionCompleta by id
-// @Param	idResolucion		path 	string	true		"The key for staticblock"
+// @Param	dedicacion	path 	string	true		"nombre de la dedicacion"
 // @Success 200 {object} models.ResolucionCompleta
 // @Failure 403
-// @router /ResolucionTemplate [get]
+// @router /ResolucionTemplate/:dedicacion/:nivel [get]
 func (c *ResolucionCompletaController) ResolucionTemplate() {
-    resolucion := models.GetTemplateResolucion()
+    dedicacion := c.Ctx.Input.Param(":dedicacion")
+    nivel := c.Ctx.Input.Param(":nivel")
+    fmt.Println("dedicacion",dedicacion, nivel)
+    resolucion := models.GetTemplateResolucion(dedicacion,nivel)
     c.Ctx.Output.SetStatus(201)
     c.Data["json"] = resolucion
     c.ServeJSON()
