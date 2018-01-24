@@ -200,11 +200,12 @@ func GetVinculacionesAgrupadas(id string) (v []VinculacionDocente, er error) {
 
 func GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad string) (totales int, er error){
 	o := orm.NewOrm()
-	var temp []int
+	var temp float64
 
-	_, err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente vd, administrativa.resolucion res WHERE vd.id_resolucion = res.id_resolucion AND res.vigencia = "+anio+" AND res.periodo = "+periodo+" AND vd.disponibilidad = "+id_disponibilidad+";").QueryRows(&temp)
+	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente vd, administrativa.resolucion res WHERE vd.id_resolucion = res.id_resolucion AND res.vigencia = "+anio+" AND res.periodo = "+periodo+" AND vd.disponibilidad = "+id_disponibilidad+";").QueryRow(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
+		
 	}
-	return temp[0],err
+	return int(temp),err
 }
