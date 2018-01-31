@@ -191,7 +191,7 @@ func GetVinculacionesAgrupadas(id string) (v []VinculacionDocente, er error) {
 	o := orm.NewOrm()
 
 	var temp []VinculacionDocente
-	_, err := o.Raw("SELECT vd.* FROM administrativa.vinculacion_docente vd JOIN (SELECT id_resolucion, id_persona, MAX(numero_horas_semanales) FROM administrativa.vinculacion_docente GROUP BY id_resolucion, id_persona)TAB1 ON vd.id_resolucion=TAB1.id_resolucion AND vd.id_persona=TAB1.id_persona AND vd.numero_horas_semanales=TAB1.max WHERE vd.id_resolucion=" + id + ";").QueryRows(&temp)
+	_, err := o.Raw("SELECT vd.* FROM administrativa.vinculacion_docente vd JOIN (SELECT vd.id_persona, MAX(vd.id) AS id FROM administrativa.vinculacion_docente vd JOIN (SELECT id_resolucion, id_persona, MAX(numero_horas_semanales) FROM administrativa.vinculacion_docente GROUP BY id_resolucion, id_persona)TAB1 ON vd.id_resolucion=TAB1.id_resolucion AND vd.id_persona=TAB1.id_persona AND vd.numero_horas_semanales=TAB1.max WHERE vd.id_resolucion=? GROUP BY vd.id_persona)TAB1 ON vd.id = TAB1.id", id).QueryRows(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}
@@ -205,7 +205,7 @@ func GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad string)
 	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente vd, administrativa.resolucion res WHERE vd.id_resolucion = res.id_resolucion AND res.vigencia = "+anio+" AND res.periodo = "+periodo+" AND vd.disponibilidad = "+id_disponibilidad+";").QueryRow(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
-		
+
 	}
 	return int(temp),err
 }
