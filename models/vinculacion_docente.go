@@ -209,3 +209,16 @@ func GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad string)
 	}
 	return int(temp),err
 }
+
+
+func GetTotalContratosXResolucion(id_resolucion string) (totales int, er error){
+	o := orm.NewOrm()
+	var temp float64
+
+	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente where id_resolucion=?",id_resolucion).QueryRow(&temp)
+	if err == nil {
+		fmt.Println("Consulta exitosa")
+		fmt.Println(int(temp))
+	}
+	return int(temp),err
+}

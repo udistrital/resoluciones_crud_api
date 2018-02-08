@@ -4897,6 +4897,14 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"],
 		beego.ControllerComments{
+			Method: "Delete",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"],
+		beego.ControllerComments{
 			Method: "GetOne",
 			Router: `/:id`,
 			AllowHTTPMethods: []string{"get"},
@@ -4913,17 +4921,17 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"],
 		beego.ControllerComments{
-			Method: "Delete",
-			Router: `/:id`,
-			AllowHTTPMethods: []string{"delete"},
+			Method: "InsertarVinculaciones",
+			Router: `/InsertarVinculaciones`,
+			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
 
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:VinculacionDocenteController"],
 		beego.ControllerComments{
-			Method: "InsertarVinculaciones",
-			Router: `/InsertarVinculaciones`,
-			AllowHTTPMethods: []string{"post"},
+			Method: "GetTotalContratosXResolucion",
+			Router: `/get_total_contratos_x_resolucion/:id_resolucion`,
+			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})
 
