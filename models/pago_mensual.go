@@ -53,7 +53,7 @@ func GetPagoMensualById(id int) (v *PagoMensual, err error) {
 // GetAllPagoMensual retrieves all PagoMensual matches certain condition. Returns empty list if
 // no records exist
 func GetAllPagoMensual(query map[string]string, fields []string, sortby []string, order []string,
-	offset int64, limit int64) (ml []interface{}, err error) {
+	offset int64, limit int64, exclude map[string]string) (ml []interface{}, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable(new(PagoMensual)).RelatedSel()
 	// query k=v
@@ -66,6 +66,21 @@ func GetAllPagoMensual(query map[string]string, fields []string, sortby []string
 			qs = qs.Filter(k, v)
 		}
 	}
+
+	// exclude k=v
+	for k, v := range exclude {
+		// rewrite dot-notation to Object__Attribute
+		k = strings.Replace(k, ".", "__", -1)
+		if strings.Contains(k, "isnull") {
+			qs = qs.Exclude(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Exclude(k, arr)
+		} else {
+			qs = qs.Exclude(k, v)
+		}
+	}
+
 	// order by:
 	var sortFields []string
 	if len(sortby) != 0 {
