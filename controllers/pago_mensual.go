@@ -3,9 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/administrativa_crud_api/models"
 	"strconv"
 	"strings"
+
+	"github.com/udistrital/administrativa_crud_api/models"
 
 	"github.com/astaxie/beego"
 )
@@ -84,6 +85,7 @@ func (c *PagoMensualController) GetAll() {
 	var query = make(map[string]string)
 	var limit int64 = 10
 	var offset int64
+	var exclude = make(map[string]string)
 
 	// fields: col1,col2,entity.col3
 	if v := c.GetString("fields"); v != "" {
@@ -119,7 +121,21 @@ func (c *PagoMensualController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllPagoMensual(query, fields, sortby, order, offset, limit)
+	//exclude: k:v,k:v
+	if v := c.GetString("exclude"); v != "" {
+		for _, cond := range strings.Split(v, ",") {
+			kv := strings.SplitN(cond, ":", 2)
+			if len(kv) != 2 {
+				c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				c.ServeJSON()
+				return
+			}
+			k, v := kv[0], kv[1]
+			exclude[k] = v
+		}
+	}
+
+	l, err := models.GetAllPagoMensual(query, fields, sortby, order, offset, limit, exclude)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
