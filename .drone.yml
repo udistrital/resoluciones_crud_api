@@ -7,9 +7,9 @@ build:
   go:
     image: golang:1.9
     commands:
-     - go get -t
+     - go get -t ./...
      - GOOS=linux GOARCH=amd64 go build -o main
-     - go get -t ./... -cover
+     - go test ./... -cover
     when:
       branch: develop
       event: push
