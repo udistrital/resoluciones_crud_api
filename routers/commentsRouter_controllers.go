@@ -4679,6 +4679,14 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:TrAprobacionMasivaDocumentosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:TrAprobacionMasivaDocumentosController"],
+		beego.ControllerComments{
+			Method: "AprobarDocumentos",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:TrNecesidadController"] = append(beego.GlobalControllerRouter["github.com/udistrital/administrativa_crud_api/controllers:TrNecesidadController"],
 		beego.ControllerComments{
 			Method: "Post",

@@ -769,6 +769,12 @@ func init() {
 				&controllers.ModificacionVinculacionController{},
 			),
 		),
+
+		beego.NSNamespace("/tr_aprobacion_masiva_documentos",
+			beego.NSInclude(
+				&controllers.TrAprobacionMasivaDocumentosController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
