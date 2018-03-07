@@ -49,7 +49,9 @@ publish:
     source: app.zip
     target: /apps/administrativa_crud_api-$$BRANCH.zip
     when:
-      branch: develop
+      branch:
+        - develop
+        - master
       event: push
 
 notify:
