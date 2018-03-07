@@ -11,7 +11,9 @@ build:
      - GOOS=linux GOARCH=amd64 go build -o main
      - go test ./... -cover
     when:
-      branch: develop
+      branch: 
+        - develop
+        - master
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -22,7 +24,9 @@ build:
       - apk -U add zip
       - zip app.zip imagedef.json
     when:
-      branch: develop
+      branch: 
+        - develop
+        - master
       event: push
 
 publish:
