@@ -20016,6 +20016,40 @@
                 }
             }
         },
+        "/tr_aprobacion_masiva_documentos/": {
+            "post": {
+                "tags": [
+                    "tr_aprobacion_masiva_documentos"
+                ],
+                "description": "create AprobarDocumentos",
+                "operationId": "TrAprobacionMasivaDocumentosController.AprobarDocumentos",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/tr_aprobacion_masiva_pagos/": {
+            "post": {
+                "tags": [
+                    "tr_aprobacion_masiva_pagos"
+                ],
+                "description": "create AprobarPagos",
+                "operationId": "TrAprobacionMasivaPagosController.AprobarPagos",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
         "/tr_necesidad/": {
             "post": {
                 "tags": [
@@ -25263,6 +25297,14 @@
         {
             "name": "modificacion_vinculacion",
             "description": "ModificacionVinculacionController operations for ModificacionVinculacion\n"
+        },
+        {
+            "name": "tr_aprobacion_masiva_documentos",
+            "description": "operations for TrAprobacionMasivaDocumentosController\n"
+        },
+        {
+            "name": "tr_aprobacion_masiva_pagos",
+            "description": "operations for TrAprobacionMasivaPagosController\n"
         }
     ]
 }
