@@ -19457,6 +19457,23 @@
                 }
             }
         },
+        "/tr_aprobacion_masiva_soportes_contratistas/": {
+            "post": {
+                "tags": [
+                    "tr_aprobacion_masiva_soportes_contratistas"
+                ],
+                "description": "create AprobarSoportesContratistas",
+                "operationId": "TrAprobacionMasivaSoportesContratistasController.AprobarSoportesContratistas",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
         "/tr_necesidad/": {
             "post": {
                 "tags": [
@@ -24685,6 +24702,10 @@
         {
             "name": "tr_aprobacion_masiva_pagos",
             "description": "operations for TrAprobacionMasivaPagosController\n"
+        },
+        {
+            "name": "tr_aprobacion_masiva_soportes_contratistas",
+            "description": "operations for TrAprobacionMasivaSoportesContratistasController\n"
         }
     ]
 }
