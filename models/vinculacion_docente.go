@@ -29,6 +29,7 @@ type VinculacionDocente struct {
 	ValorContrato        float64                       `orm:"column(valor_contrato)"`
 	Categoria            string                        `orm:"column(categoria)"`
 	Disponibilidad       int                           `orm:"column(disponibilidad)"`
+	DependenciaAcademica int                           `orm:"column(dependencia_academica)"`
 }
 
 func (t *VinculacionDocente) TableName() string {
@@ -41,13 +42,12 @@ func init() {
 
 func AddConjuntoVinculaciones(m []VinculacionDocente) (id int64, err error) {
 	o := orm.NewOrm()
-	fmt.Println("holaaaa")
 	o.Begin()
 	for _, vinculacion := range m {
 		vinculacion.Estado = true
 		vinculacion.FechaRegistro = time.Now()
 		id, err = o.Insert(&vinculacion)
-		fmt.Println("id de vinculacion insertada",id)
+		fmt.Println("id de vinculacion insertada", id)
 		if err != nil {
 			o.Rollback()
 			return
@@ -195,30 +195,29 @@ func GetVinculacionesAgrupadas(id string) (v []VinculacionDocente, er error) {
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}
-	return temp,err
+	return temp, err
 }
 
-func GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad string) (totales int, er error){
+func GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad string) (totales int, er error) {
 	o := orm.NewOrm()
 	var temp float64
 
-	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente vd, administrativa.resolucion res WHERE vd.id_resolucion = res.id_resolucion AND res.vigencia = "+anio+" AND res.periodo = "+periodo+" AND vd.disponibilidad = "+id_disponibilidad+";").QueryRow(&temp)
+	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente vd, administrativa.resolucion res WHERE vd.id_resolucion = res.id_resolucion AND res.vigencia = " + anio + " AND res.periodo = " + periodo + " AND vd.disponibilidad = " + id_disponibilidad + ";").QueryRow(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 
 	}
-	return int(temp),err
+	return int(temp), err
 }
 
-
-func GetTotalContratosXResolucion(id_resolucion string) (totales int, er error){
+func GetTotalContratosXResolucion(id_resolucion string) (totales int, er error) {
 	o := orm.NewOrm()
 	var temp float64
 
-	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente where id_resolucion=?",id_resolucion).QueryRow(&temp)
+	err := o.Raw("SELECT SUM(valor_contrato)  FROM administrativa.vinculacion_docente where id_resolucion=?", id_resolucion).QueryRow(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 		fmt.Println(int(temp))
 	}
-	return int(temp),err
+	return int(temp), err
 }
