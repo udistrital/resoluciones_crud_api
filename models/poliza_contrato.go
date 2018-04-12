@@ -14,12 +14,12 @@ type PolizaContrato struct {
 	Id                 int       `orm:"column(id);pk;auto"`
 	NumeroPoliza       string    `orm:"column(numero_poliza)"`
 	EntidadAseguradora int       `orm:"column(entidad_aseguradora)"`
-	FechaInicio        time.Time `orm:"column(fecha_inicio);type(timestamp without time zone);auto_now"`
-	FechaFin           time.Time `orm:"column(fecha_fin);type(timestamp without time zone);auto_now"`
-	FechaAprobacion    time.Time `orm:"column(fecha_aprobacion);type(timestamp without time zone);auto_now"`
+	FechaInicio        time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
+	FechaFin           time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
+	FechaAprobacion    time.Time `orm:"column(fecha_aprobacion);type(timestamp without time zone)"`
 	Contrato           *Contrato `orm:"column(contrato);rel(fk)"`
 	DescripcionPoliza  string    `orm:"column(descripcion_poliza);null"`
-	FechaRegistro      time.Time `orm:"column(fecha_registro);type(timestamp without time zone);auto_now"`
+	FechaRegistro      time.Time `orm:"column(fecha_registro);type(timestamp without time zone)"`
 	Activo             bool      `orm:"column(activo)"`
 }
 

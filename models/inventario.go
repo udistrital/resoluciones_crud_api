@@ -18,9 +18,9 @@ type Inventario struct {
 	ContratoElementoActaRecibido *ContratoElementoActaRecibido `orm:"column(contrato_elemento_acta_recibido);rel(fk)"`
 	Observaciones                string                        `orm:"column(observaciones);null"`
 	EstadoInventario             *EstadoInventario             `orm:"column(estado_inventario);rel(fk)"`
-	FechaValidacionFuncionario   time.Time                     `orm:"column(fecha_validacion_funcionario);type(date);null;auto_now"`
+	FechaValidacionFuncionario   time.Time                     `orm:"column(fecha_validacion_funcionario);type(date);null"`
 	ValidacionContratista        bool                          `orm:"column(validacion_contratista)"`
-	FechaValidacionContratista   time.Time                     `orm:"column(fecha_validacion_contratista);type(date);null;auto_now"`
+	FechaValidacionContratista   time.Time                     `orm:"column(fecha_validacion_contratista);type(date);null"`
 	Contratista                  int                           `orm:"column(contratista);null"`
 }
 

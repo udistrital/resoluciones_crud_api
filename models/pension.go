@@ -14,7 +14,7 @@ type Pension struct {
 	Id           int          `orm:"column(id);pk;auto"`
 	ValorPension float64      `orm:"column(valor_pension)"`
 	TipoPension  *TipoPension `orm:"column(tipo_pension);rel(fk)"`
-	FechaPension time.Time    `orm:"column(fecha_pension);type(timestamp without time zone);null;auto_now"`
+	FechaPension time.Time    `orm:"column(fecha_pension);type(timestamp without time zone);null"`
 }
 
 func (t *Pension) TableName() string {
