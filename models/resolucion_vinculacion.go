@@ -53,11 +53,8 @@ func GetAllResolucionAprobada() (arregloIDs []ResolucionVinculacion) {
 	}
 	for x, resoluciones := range temp {
 		resoluciones.FechaExpedicion = resoluciones.FechaExpedicion.UTC()
-		fmt.Println("Estoy aquiii para el temp aprobadas -> ", resoluciones.FechaExpedicion)
-		fmt.Println("Soyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy el x: ", x)
 		temp[x].FechaExpedicion = resoluciones.FechaExpedicion
 	}
-	fmt.Println("OMGGGGGG ", temp[0].FechaExpedicion)
 	return temp
 }
 
@@ -73,11 +70,8 @@ func GetAllExpedidasVigenciaPeriodo(vigencia, periodo int) (arregloIDs []Resoluc
 
 	for x, resoluciones := range temp {
 		resoluciones.FechaExpedicion = resoluciones.FechaExpedicion.UTC()
-		fmt.Println("Estoy aquiii para el temp aprobadas -> ", resoluciones.FechaExpedicion)
-		fmt.Println("Soyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy el x: ", x)
 		temp[x].FechaExpedicion = resoluciones.FechaExpedicion
 	}
-	fmt.Println("OMGGGGGG ", temp[0].FechaExpedicion)
 
 	return temp
 }
