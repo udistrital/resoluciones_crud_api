@@ -44,13 +44,21 @@ func (c *ResolucionVinculacionController) GetAll() {
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
-// @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
-// @Param	offset	query	string	false	"Start position of result set. Must be an integer"
+// @Param	limit	query	int		false	"Limit the size of result set. Must be an integer"
+// @Param	offset	query	int		false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.ResolucionVinculacionDocente
 // @Failure 403
 // @router /Aprobada [get]
 func (c *ResolucionVinculacionController) GetAllAprobada() {
-	listaResoluciones := models.GetAllResolucionAprobada()
+	limit, _ := c.GetInt("limit")
+	offset, _ := c.GetInt("offset")
+
+	query := c.GetString("query")
+	listaResoluciones, err := models.GetAllResolucionAprobada(limit, offset, query)
+	if err != nil {
+		c.Abort("403")
+	}
+
 	c.Ctx.Output.SetStatus(201)
 	c.Data["json"] = listaResoluciones
 	c.ServeJSON()
