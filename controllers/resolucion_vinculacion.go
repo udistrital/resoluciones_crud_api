@@ -46,7 +46,7 @@ func (c *ResolucionVinculacionController) GetAll() {
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	int		false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	int		false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.ResolucionVinculacionDocente
+// @Success 201 {object} models.ResolucionVinculacionDocente
 // @Failure 403
 // @router /Aprobada [get]
 func (c *ResolucionVinculacionController) GetAllAprobada() {
@@ -56,6 +56,7 @@ func (c *ResolucionVinculacionController) GetAllAprobada() {
 	query := c.GetString("query")
 	listaResoluciones, err := models.GetAllResolucionAprobada(limit, offset, query)
 	if err != nil {
+		fmt.Println(err)
 		c.Abort("403")
 	}
 
@@ -83,7 +84,7 @@ func (c *ResolucionVinculacionController) GetAllExpedidasVigenciaPeriodo() {
 
 	} else {
 		fmt.Println(err)
-		c.Data["json"] = "error"
+		c.Abort("403")
 	}
 	c.ServeJSON()
 }
@@ -107,7 +108,7 @@ func (c *ResolucionVinculacionController) GetAllExpedidasVigenciaPeriodoVinculac
 
 	} else {
 		fmt.Println(err)
-		c.Data["json"] = "error"
+		c.Abort("403")
 	}
 	c.ServeJSON()
 }
