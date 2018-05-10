@@ -90,6 +90,9 @@ func GetAllVinculacionDocente(query map[string]string, fields []string, sortby [
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "__in") {
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}
@@ -192,6 +195,17 @@ func GetVinculacionesAgrupadas(id string) (v []VinculacionDocente, er error) {
 
 	var temp []VinculacionDocente
 	_, err := o.Raw("SELECT vd.* FROM administrativa.vinculacion_docente vd JOIN (SELECT vd.id_persona, MAX(vd.id) AS id FROM administrativa.vinculacion_docente vd JOIN (SELECT id_resolucion, id_persona, MAX(numero_horas_semanales) FROM administrativa.vinculacion_docente GROUP BY id_resolucion, id_persona)TAB1 ON vd.id_resolucion=TAB1.id_resolucion AND vd.id_persona=TAB1.id_persona AND vd.numero_horas_semanales=TAB1.max WHERE vd.id_resolucion=? GROUP BY vd.id_persona)TAB1 ON vd.id = TAB1.id", id).QueryRows(&temp)
+	if err == nil {
+		fmt.Println("Consulta exitosa")
+	}
+	return temp, err
+}
+
+func GetVinculacionesAgrupadasCanceladas(id string) (v []VinculacionDocente, er error) {
+	o := orm.NewOrm()
+
+	var temp []VinculacionDocente
+	_, err := o.Raw("SELECT vd.* FROM administrativa.vinculacion_docente vd JOIN (SELECT vd.id_persona, MAX(vd.id) AS id FROM administrativa.vinculacion_docente vd JOIN (SELECT id_resolucion, id_persona, MAX(numero_horas_semanales) FROM administrativa.vinculacion_docente GROUP BY id_resolucion, id_persona)TAB1 ON vd.id_resolucion=TAB1.id_resolucion AND vd.id_persona=TAB1.id_persona AND vd.numero_horas_semanales=TAB1.max WHERE vd.id IN (SELECT mv.vinculacion_docente_cancelada FROM administrativa.modificacion_vinculacion mv INNER JOIN administrativa.modificacion_resolucion mr ON mr.id=mv.modificacion_resolucion WHERE mr.resolucion_nueva=?) GROUP BY vd.id_persona)TAB1 ON vd.id = TAB1.id", id).QueryRows(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}

@@ -1,13 +1,14 @@
 package controllers
 
 import (
-	"github.com/udistrital/administrativa_crud_api/models"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
-	"fmt"
+
 	"github.com/astaxie/beego"
+	"github.com/udistrital/administrativa_crud_api/models"
 )
 
 // VinculacionDocenteController oprations for VinculacionDocente
@@ -52,7 +53,7 @@ func (c *VinculacionDocenteController) GetTotalContratosXResolucion() {
 func (c *VinculacionDocenteController) InsertarVinculaciones() {
 	var v []models.VinculacionDocente
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if id,err := models.AddConjuntoVinculaciones(v); err == nil {
+		if id, err := models.AddConjuntoVinculaciones(v); err == nil {
 
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = id
@@ -232,6 +233,24 @@ func (c *VinculacionDocenteController) GetVinculacionesAgrupadas() {
 	c.ServeJSON()
 }
 
+// GetVinculacionesAgrupadasCanceladas ...
+// @Title GetVinculacionesAgrupadasCanceladas
+// @Description get vinculaciones agrupadas por docente que van o han sido canceladas (reversadas)
+// @Param	id_resolucion		path 	string	true
+// @Success 200 {object} models.VinculacionDocente
+// @Failure 403 :id is empty
+// @router /get_vinculaciones_agrupadas_canceladas/:id_resolucion [get]
+func (c *VinculacionDocenteController) GetVinculacionesAgrupadasCanceladas() {
+	idStr := c.Ctx.Input.Param(":id_resolucion")
+	v, err := models.GetVinculacionesAgrupadasCanceladas(idStr)
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		c.Data["json"] = v
+	}
+	c.ServeJSON()
+}
+
 // GetValoresTotalesPorDisponibilidad ...
 // @Title GetValoresTotalesPorDisponibilidad
 // @Description se obtiene el valor total que ha sido apartado para cierta disponibilidad
@@ -245,7 +264,6 @@ func (c *VinculacionDocenteController) GetValoresTotalesPorDisponibilidad() {
 	anio := c.Ctx.Input.Param(":anio")
 	periodo := c.Ctx.Input.Param(":periodo")
 	id_disponibilidad := c.Ctx.Input.Param(":id_disponibilidad")
-	fmt.Println("asdf",anio, periodo, id_disponibilidad)
 	v, err := models.GetValoresTotalesPorDisponibilidad(anio, periodo, id_disponibilidad)
 	if err != nil {
 		c.Data["json"] = err.Error()

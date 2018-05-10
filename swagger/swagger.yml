@@ -9589,10 +9589,6 @@ paths:
         name: vigencia
         description: nomina a listar
         type: string
-      - in: query
-        name: periodo
-        description: mes de la liquidacion a listar
-        type: string
       responses:
         "201":
           schema:
@@ -9604,15 +9600,11 @@ paths:
       tags:
       - resolucion_vinculacion
       description: Muestra resoluciones de tipo vinculación para cancelar y modificar
-      operationId: ResolucionVinculacionController.GetAllExpedidasVigenciaPeriodo
+      operationId: ResolucionVinculacionController.GetAllExpedidasVigenciaPeriodoVinculacion
       parameters:
       - in: query
         name: vigencia
         description: nomina a listar
-        type: string
-      - in: query
-        name: periodo
-        description: mes de la liquidacion a listar
         type: string
       responses:
         "201":
@@ -13449,6 +13441,24 @@ paths:
       - vinculacion_docente
       description: get vinculaciones agrupadas por docente
       operationId: VinculacionDocenteController.GetVinculacionesAgrupadas
+      parameters:
+      - in: path
+        name: id_resolucion
+        description: "true"
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.VinculacionDocente'
+        "403":
+          description: :id is empty
+  /vinculacion_docente/get_vinculaciones_agrupadas_canceladas/{id_resolucion}:
+    get:
+      tags:
+      - vinculacion_docente
+      description: get vinculaciones agrupadas por docente que van o han sido canceladas
+        (reversadas)
+      operationId: VinculacionDocenteController.GetVinculacionesAgrupadasCanceladas
       parameters:
       - in: path
         name: id_resolucion
