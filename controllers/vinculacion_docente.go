@@ -233,24 +233,6 @@ func (c *VinculacionDocenteController) GetVinculacionesAgrupadas() {
 	c.ServeJSON()
 }
 
-// GetVinculacionesAgrupadasCanceladas ...
-// @Title GetVinculacionesAgrupadasCanceladas
-// @Description get vinculaciones agrupadas por docente que van o han sido canceladas (reversadas)
-// @Param	id_resolucion		path 	string	true
-// @Success 200 {object} models.VinculacionDocente
-// @Failure 403 :id is empty
-// @router /get_vinculaciones_agrupadas_canceladas/:id_resolucion [get]
-func (c *VinculacionDocenteController) GetVinculacionesAgrupadasCanceladas() {
-	idStr := c.Ctx.Input.Param(":id_resolucion")
-	v, err := models.GetVinculacionesAgrupadasCanceladas(idStr)
-	if err != nil {
-		c.Data["json"] = err.Error()
-	} else {
-		c.Data["json"] = v
-	}
-	c.ServeJSON()
-}
-
 // GetValoresTotalesPorDisponibilidad ...
 // @Title GetValoresTotalesPorDisponibilidad
 // @Description se obtiene el valor total que ha sido apartado para cierta disponibilidad

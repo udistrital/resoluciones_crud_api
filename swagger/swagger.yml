@@ -9567,13 +9567,15 @@ paths:
       - in: query
         name: limit
         description: Limit the size of result set. Must be an integer
-        type: string
+        type: integer
+        format: int64
       - in: query
         name: offset
         description: Start position of result set. Must be an integer
-        type: string
+        type: integer
+        format: int64
       responses:
-        "200":
+        "201":
           schema:
             $ref: '#/definitions/models.ResolucionVinculacionDocente'
         "403": {}
@@ -13441,24 +13443,6 @@ paths:
       - vinculacion_docente
       description: get vinculaciones agrupadas por docente
       operationId: VinculacionDocenteController.GetVinculacionesAgrupadas
-      parameters:
-      - in: path
-        name: id_resolucion
-        description: "true"
-        type: string
-      responses:
-        "200":
-          schema:
-            $ref: '#/definitions/models.VinculacionDocente'
-        "403":
-          description: :id is empty
-  /vinculacion_docente/get_vinculaciones_agrupadas_canceladas/{id_resolucion}:
-    get:
-      tags:
-      - vinculacion_docente
-      description: get vinculaciones agrupadas por docente que van o han sido canceladas
-        (reversadas)
-      operationId: VinculacionDocenteController.GetVinculacionesAgrupadasCanceladas
       parameters:
       - in: path
         name: id_resolucion
