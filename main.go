@@ -34,6 +34,10 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	// Custom JSON error pages
+	beego.ErrorHandler("403", forgivenJsonPage)
+	beego.ErrorHandler("404", notFoundJsonPage)
+
 	apistatus.Init()
 	beego.Run()
 }
