@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/astaxie/beego/logs"
 	_ "github.com/lib/pq"
 	_ "github.com/udistrital/administrativa_crud_api/routers"
 	"github.com/udistrital/utils_oas/apiStatusLib"
@@ -34,9 +35,14 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+
 	// Custom JSON error pages
 	beego.ErrorHandler("403", forgivenJsonPage)
 	beego.ErrorHandler("404", notFoundJsonPage)
+
+
+
+	logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/administrativa_crud_api.log"}`)
 
 	apistatus.Init()
 	beego.Run()
