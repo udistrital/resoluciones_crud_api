@@ -1,11 +1,12 @@
 package controllers
 
 import (
-	"github.com/udistrital/administrativa_crud_api/models"
 	"encoding/json"
 	"errors"
 	"strings"
+
 	"github.com/astaxie/beego"
+	"github.com/udistrital/resoluciones_crud/models"
 )
 
 //  ContratoGeneralController operations for ContratoGeneral

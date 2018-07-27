@@ -13,26 +13,26 @@ import (
 )
 
 type VinculacionDocente struct {
-	Id                   int                           `orm:"column(id);pk;auto"`
-	NumeroContrato       sql.NullString                `orm:"column(numero_contrato);null"`
-	Vigencia             sql.NullInt64                 `orm:"column(vigencia);null"`
-	IdPersona            string                        `orm:"column(id_persona)"`
-	NumeroHorasSemanales int                           `orm:"column(numero_horas_semanales)"`
-	NumeroSemanas        int                           `orm:"column(numero_semanas)"`
-	IdPuntoSalarial      int                           `orm:"column(id_punto_salarial);null"`
-	IdSalarioMinimo      int                           `orm:"column(id_salario_minimo);null"`
-	IdResolucion         *ResolucionVinculacionDocente `orm:"column(id_resolucion);rel(fk)"`
-	IdDedicacion         *Dedicacion                   `orm:"column(id_dedicacion);rel(fk)"`
-	IdProyectoCurricular int16                         `orm:"column(id_proyecto_curricular)"`
-	Estado               bool                          `orm:"column(estado)"`
-	FechaRegistro        time.Time                     `orm:"column(fecha_registro);type(date)"`
-	ValorContrato        float64                       `orm:"column(valor_contrato)"`
-	Categoria            string                        `orm:"column(categoria)"`
-	Disponibilidad       int                           `orm:"column(disponibilidad)"`
-	DependenciaAcademica int                           `orm:"column(dependencia_academica)"`
-	NumeroRp             int                           `orm:"column(numero_rp)"`
-	VigenciaRp           int                           `orm:"column(vigencia_rp)"`
-	FechaInicio          time.Time                     `orm:"column(fecha_inicio);type(date)"`
+	Id                   int            `orm:"column(id);pk;auto"`
+	NumeroContrato       sql.NullString `orm:"column(numero_contrato);null"`
+	Vigencia             sql.NullInt64  `orm:"column(vigencia);null"`
+	IdPersona            string         `orm:"column(id_persona)"`
+	NumeroHorasSemanales int            `orm:"column(numero_horas_semanales)"`
+	NumeroSemanas        int            `orm:"column(numero_semanas)"`
+	IdPuntoSalarial      int            `orm:"column(id_punto_salarial);null"`
+	IdSalarioMinimo      int            `orm:"column(id_salario_minimo);null"`
+	IdResolucion         *Resolucion    `orm:"column(id_resolucion);rel(fk)"`
+	IdDedicacion         *Dedicacion    `orm:"column(id_dedicacion);rel(fk)"`
+	IdProyectoCurricular int16          `orm:"column(id_proyecto_curricular)"`
+	Estado               bool           `orm:"column(estado)"`
+	FechaRegistro        time.Time      `orm:"column(fecha_registro);type(date)"`
+	ValorContrato        float64        `orm:"column(valor_contrato)"`
+	Categoria            string         `orm:"column(categoria)"`
+	Disponibilidad       int            `orm:"column(disponibilidad)"`
+	DependenciaAcademica int            `orm:"column(dependencia_academica)"`
+	NumeroRp             int            `orm:"column(numero_rp)"`
+	VigenciaRp           int            `orm:"column(vigencia_rp)"`
+	FechaInicio          time.Time      `orm:"column(fecha_inicio);type(date)"`
 }
 
 func (t *VinculacionDocente) TableName() string {

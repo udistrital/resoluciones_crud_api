@@ -1,12 +1,13 @@
 package controllers
 
 import (
-  	"github.com/udistrital/administrativa_crud_api/models"
-  	"encoding/json"
-	"strconv"
+	"encoding/json"
 	"fmt"
+	"strconv"
 
-  	"github.com/astaxie/beego"
+	"github.com/udistrital/resoluciones_crud/models"
+
+	"github.com/astaxie/beego"
 )
 
 type ResolucionCompletaController struct {
@@ -27,13 +28,13 @@ func (c *ResolucionCompletaController) URLMapping() {
 // @Failure 403
 // @router /ResolucionTemplate/:dedicacion/:nivel [get]
 func (c *ResolucionCompletaController) ResolucionTemplate() {
-    dedicacion := c.Ctx.Input.Param(":dedicacion")
-    nivel := c.Ctx.Input.Param(":nivel")
-    fmt.Println("dedicacion",dedicacion, nivel)
-    resolucion := models.GetTemplateResolucion(dedicacion,nivel)
-    c.Ctx.Output.SetStatus(201)
-    c.Data["json"] = resolucion
-    c.ServeJSON()
+	dedicacion := c.Ctx.Input.Param(":dedicacion")
+	nivel := c.Ctx.Input.Param(":nivel")
+	fmt.Println("dedicacion", dedicacion, nivel)
+	resolucion := models.GetTemplateResolucion(dedicacion, nivel)
+	c.Ctx.Output.SetStatus(201)
+	c.Data["json"] = resolucion
+	c.ServeJSON()
 }
 
 // GetOne ...
@@ -45,10 +46,10 @@ func (c *ResolucionCompletaController) ResolucionTemplate() {
 // @router /:idResolucion [get]
 func (c *ResolucionCompletaController) GetOne() {
 	idResolucion := c.Ctx.Input.Param(":idResolucion")
-    resolucion := models.GetOneResolucionCompleta(idResolucion)
-    c.Ctx.Output.SetStatus(201)
-    c.Data["json"] = resolucion
-    c.ServeJSON()
+	resolucion := models.GetOneResolucionCompleta(idResolucion)
+	c.Ctx.Output.SetStatus(201)
+	c.Data["json"] = resolucion
+	c.ServeJSON()
 }
 
 // Put ...
@@ -72,5 +73,5 @@ func (c *ResolucionCompletaController) Put() {
 		fmt.Println(err.Error())
 		c.Data["json"] = err.Error()
 	}
-    c.ServeJSON()
+	c.ServeJSON()
 }

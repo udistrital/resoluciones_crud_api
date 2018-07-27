@@ -1,5 +1,5 @@
 clone:
-  path: github.com/udistrital/administrativa_crud_api
+  path: github.com/udistrital/resoluciones_crud
 
 build:
 
@@ -33,7 +33,7 @@ publish:
 
   # build and push docker image to docker hub
   docker:
-    repo: oas0/administrativa_crud_api
+    repo: oas0/resoluciones_crud
     tag:
       - $${COMMIT:0:7}
       - latest
@@ -51,7 +51,7 @@ publish:
     access_key: $$DRONE_AWS_ACCESS_KEY_ID
     secret_key: $$DRONE_AWS_SECRET_ACCESS_KEY
     source: app.zip
-    target: /apps/administrativa_crud_api-$$BRANCH.zip
+    target: /apps/resoluciones_crud-$$BRANCH.zip
     when:
       branch:
         - develop

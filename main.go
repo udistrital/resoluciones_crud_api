@@ -8,7 +8,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
-	_ "github.com/udistrital/administrativa_crud_api/routers"
+	_ "github.com/udistrital/resoluciones_crud/routers"
 	"github.com/udistrital/utils_oas/apiStatusLib"
 )
 
@@ -45,7 +45,7 @@ func main() {
 	beego.ErrorHandler("403", forgivenJsonPage)
 	beego.ErrorHandler("404", notFoundJsonPage)
 
-	logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/administrativa_crud_api.log"}`)
+	logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/resoluciones_crud.log"}`)
 
 	apistatus.Init()
 	beego.Run()

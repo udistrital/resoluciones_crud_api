@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
-	"github.com/udistrital/administrativa_crud_api/models"
+	"github.com/udistrital/resoluciones_crud/models"
 )
 
 // VinculacionDocenteController oprations for VinculacionDocente
@@ -149,6 +149,7 @@ func (c *VinculacionDocenteController) GetAll() {
 		order = strings.Split(v, ",")
 	}
 	// query: k:v,k:v
+	beego.Info(c.GetString("query"))
 	if v := c.GetString("query"); v != "" {
 		for _, cond := range strings.Split(v, ",") {
 			kv := strings.SplitN(cond, ":", 2)

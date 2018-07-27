@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/udistrital/administrativa_crud_api/models"
+	"github.com/udistrital/resoluciones_crud/models"
 
 	"github.com/astaxie/beego"
 )
